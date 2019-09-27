@@ -1,0 +1,134 @@
+[
+{
+  "model": "webapp.mission",
+  "pk": 1,
+  "fields": {
+    "summary": "bla bla",
+    "description": "blq bla",
+    "status": 1,
+    "type": 1,
+    "created_at": "2019-09-27T10:56:09.929Z",
+    "updated_at": "2019-09-27T10:56:09.929Z"
+  }
+},
+{
+  "model": "webapp.mission",
+  "pk": 2,
+  "fields": {
+    "summary": "lalalal",
+    "description": "buggy",
+    "status": 1,
+    "type": 2,
+    "created_at": "2019-09-27T11:03:54.334Z",
+    "updated_at": "2019-09-27T11:03:54.334Z"
+  }
+},
+{
+  "model": "webapp.mission",
+  "pk": 3,
+  "fields": {
+    "summary": "olololo",
+    "description": "scholarships",
+    "status": 2,
+    "type": 3,
+    "created_at": "2019-09-27T11:04:27.432Z",
+    "updated_at": "2019-09-27T11:04:27.432Z"
+  }
+},
+{
+  "model": "webapp.mission",
+  "pk": 4,
+  "fields": {
+    "summary": "fytbolchik",
+    "description": "futer",
+    "status": 3,
+    "type": 2,
+    "created_at": "2019-09-27T11:04:51.722Z",
+    "updated_at": "2019-09-27T11:04:51.722Z"
+  }
+},
+{
+  "model": "webapp.mission",
+  "pk": 5,
+  "fields": {
+    "summary": "ragby",
+    "description": "lolfokgotrkg",
+    "status": 2,
+    "type": 3,
+    "created_at": "2019-09-27T11:05:09.378Z",
+    "updated_at": "2019-09-27T11:05:09.378Z"
+  }
+},
+{
+  "model": "webapp.mission",
+  "pk": 6,
+  "fields": {
+    "summary": "basketball",
+    "description": "frog",
+    "status": 1,
+    "type": 3,
+    "created_at": "2019-09-27T11:05:31.885Z",
+    "updated_at": "2019-09-27T11:05:31.885Z"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 1,
+  "fields": {
+    "status": "new"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 2,
+  "fields": {
+    "status": "in progress"
+  }
+},
+{
+  "model": "webapp.status",
+  "pk": 3,
+  "fields": {
+    "status": "done"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 1,
+  "fields": {
+    "type": "task"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 2,
+  "fields": {
+    "type": "bug"
+  }
+},
+{
+  "model": "webapp.type",
+  "pk": 3,
+  "fields": {
+    "type": "enhancement"
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$CDPtgpcu9r1G$BKZYDG2+xhhxjnUgRKCACpNWnNZYtgXC6DVI5Idwmgw=",
+    "last_login": "2019-09-27T10:54:53.200Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2019-09-27T08:40:33.200Z",
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
