@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block menu %}
+    <li>
+        <a href="{% url 'status_add'  %}" class="link">Create status</a>
+    </li>
+{% endblock %}
+{% block content %}
+    <h1 class="mt-3">Добро пожаловать</h1>
+    <div class="row">
+        {% for status in statuses %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-text card-link">
+                            <a href="{% url 'status_view' status.pk %}">{{ status.status }}</a>
+                        </h2>
+                        <li>
+                            <a href="{% url 'status_delete' status.pk %}">Delete status</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'status_update' status.pk %}">Update status</a>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

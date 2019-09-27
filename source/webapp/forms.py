@@ -16,3 +16,11 @@ class MissionForm(forms.Form):
 
     type = forms.ModelChoiceField(queryset=Type.objects.all(), required=True, label='Type',
                                       empty_label=None)
+
+class StatusForm(forms.Form):
+
+    status = forms.CharField(max_length=20,label='Status',required=True)
+
+
+class TypeForm(forms.Form):
+    type = forms.CharField(max_length=20, label='Type', required=True)
