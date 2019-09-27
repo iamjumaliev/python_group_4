@@ -16,6 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from webapp.views import IndexView, MissionView, MissionCreateView, mission_delete_view, mission_update_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', IndexView.as_view(), name='index'),
+    path('mission/<int:pk>/', MissionView.as_view(), name='mission_view'),
+    path('mission/add/', MissionCreateView.as_view(), name='mission_add'),
+    path('mission/<int:pk>/update/', mission_update_view, name='mission_update'),
+    path('mission/<int:pk>/delete/', mission_delete_view, name='mission_delete'),
 ]

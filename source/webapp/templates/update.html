@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Update Product{% endblock %}
+
+{% block menu %}
+{% endblock %}
+
+{% block content %}
+    <h1>Update Task
+        <a href="{% url 'mission_view' mission.pk %}">{{ mission.summary }}</a>
+    </h1>
+    <form method="POST" action="{% url 'mission_update' mission.pk %}">
+        {% include 'partial/form.html' with button_text="Update" %}
+    </form>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h1 class="my-3">{{ mission.summary }}</h1>
+    <p>Дата создания: {{ mission.created_at }}</p>
+    <p>Статус: {{ mission.status }}</p>
+    <p>Тип: {{ mission.type }}</p>
+    <div class="pre">{{ mission.description }}</div>
+{% endblock %}
