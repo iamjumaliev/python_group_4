@@ -16,26 +16,26 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from webapp.views import IndexView, MissionView, MissionCreateView, mission_delete_view, mission_update_view, \
-    StatusView, StatusCreateView, status_update_view, status_delete_view, TypeView, TypeCreateView, type_update_view, \
-    type_delete_view, Status_View, Type_View
+from webapp.views import IndexView, MissionView, MissionCreateView, MissionDeleteView, MissionUpdateView, \
+    StatusCreateView, status_update_view, status_delete_view, TypeView, TypeCreateView, type_update_view, \
+    type_delete_view, TypeIndexView,  StatusIndexView, StatusView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('mission/<int:pk>/', MissionView.as_view(), name='mission_view'),
     path('mission/add/', MissionCreateView.as_view(), name='mission_add'),
-    path('mission/<int:pk>/update/', mission_update_view, name='mission_update'),
-    path('mission/<int:pk>/delete/', mission_delete_view, name='mission_delete'),
-    path('status/', StatusView.as_view(), name='status'),
-    path('status/<int:pk>/', Status_View.as_view(), name='status_view'),
+    path('mission/<int:pk>/update/', MissionUpdateView, name='mission_update'),
+    path('mission/<int:pk>/delete/', MissionDeleteView, name='mission_delete'),
+    path('status/', StatusIndexView.as_view(), name='status'),
+    path('status/<int:pk>/', StatusView.as_view(), name='status_view'),
     path('status/add/',  StatusCreateView.as_view(), name='status_add'),
     path('status/<int:pk>/update/',  status_update_view, name='status_update'),
     path('status/<int:pk>/delete/',status_delete_view, name='status_delete'),
-    path('type/', TypeView.as_view(), name='type'),
-    path('type/<int:pk>/', Type_View.as_view(), name='type_view'),
+    path('type/', TypeIndexView.as_view(), name='type'),
+    path('type/<int:pk>/', TypeView.as_view(), name='type_view'),
     path('type/add/', TypeCreateView.as_view(), name='type_add'),
     path('type/<int:pk>/update/', type_update_view, name='type_update'),
-    path('type/<int:pk>/delete/', type_delete_view, name='type_delete'),
+    path('type/<int:pk>/delete/', type_delete_view, name='type_delete')
 
 ]
