@@ -3,7 +3,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from webapp.forms import MissionForm, StatusForm
 from webapp.models import Status
 from django.views import View
-from django.views.generic import TemplateView,ListView
+from django.views.generic import  ListView
+from .base_view import DetailView
+
 
 class StatusIndexView(ListView):
     template_name = 'status/status.html'
@@ -16,14 +18,13 @@ class StatusIndexView(ListView):
         return Status.objects.all()
 
 
-class StatusView(TemplateView):
-    template_name = 'status/status_view.html'
+class StatusView(DetailView):
 
-    def get_context_data(self, **kwargs):
-        pk = kwargs.get('pk')
-        context = super().get_context_data(**kwargs)
-        context['status'] = get_object_or_404(Status, pk=pk)
-        return context
+    template_name = 'status/status_view.html'
+    model = Status
+    context_object = 'status'
+    context_key = 'status'
+
 
 class StatusCreateView(View):
     def get(self, request, *args, **kwargs):

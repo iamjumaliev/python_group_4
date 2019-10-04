@@ -3,7 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from webapp.forms import MissionForm, StatusForm, TypeForm
 from webapp.models import Mission, Type
 from django.views import View
-from django.views.generic import TemplateView,ListView
+from django.views.generic import ListView
+from .base_view import DetailView
 
 
 class TypeIndexView(ListView):
@@ -18,14 +19,12 @@ class TypeIndexView(ListView):
 
 
 
-class TypeView(TemplateView):
-    template_name = 'type/type_view.html'
+class TypeView(DetailView):
 
-    def get_context_data(self, **kwargs):
-        pk = kwargs.get('pk')
-        context = super().get_context_data(**kwargs)
-        context['type'] = get_object_or_404(Type, pk=pk)
-        return context
+    template_name = 'type/type_view.html'
+    model = Type
+    context_object = 'type'
+    context_key = 'type'
 
 class TypeCreateView(View):
     def get(self, request, *args, **kwargs):

@@ -4,7 +4,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from webapp.forms import MissionForm
 from webapp.models import Mission
 from django.views import View
-from django.views.generic import TemplateView, ListView
+from django.views.generic import ListView
+from .base_view import DetailView
 
 
 class IndexView(ListView):
@@ -18,16 +19,12 @@ class IndexView(ListView):
     def get_queryset(self):
         return Mission.objects.all().order_by('-created_at')
 
-class MissionView(TemplateView):
+class MissionView(DetailView):
     template_name = 'mission/mission.html'
+    model = Mission
+    context_key = 'mission'
+    context_object= 'mission'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        pk = kwargs.get('pk')
-        mission = get_object_or_404(Mission, pk=pk)
-        context['mission'] = mission
-        context['form'] = MissionForm()
-        return context
 
 
 class MissionCreateView(View):
