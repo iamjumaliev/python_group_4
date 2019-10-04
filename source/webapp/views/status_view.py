@@ -9,8 +9,12 @@ class StatusIndexView(ListView):
     template_name = 'status/status.html'
     context_object_name = 'statuses'
     model = Status
-    paginate_by = 5
+    paginate_by = 3
     paginate_orphans = 1
+
+    def get_queryset(self):
+        return Status.objects.all()
+
 
 class StatusView(TemplateView):
     template_name = 'status/status_view.html'

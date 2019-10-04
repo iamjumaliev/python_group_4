@@ -10,8 +10,12 @@ class TypeIndexView(ListView):
     template_name = 'type/type.html'
     context_object_name = 'types'
     model = Type
-    paginate_by = 5
+    paginate_by = 3
     paginate_orphans = 1
+
+    def get_queryset(self):
+        return Type.objects.all()
+
 
 
 class TypeView(TemplateView):

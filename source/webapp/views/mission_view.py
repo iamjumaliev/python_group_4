@@ -12,9 +12,11 @@ class IndexView(ListView):
     context_object_name = 'missions'
     model = Mission
     ordering = ['-created_at']
-    paginate_by = 5
+    paginate_by = 3
     paginate_orphans = 1
 
+    def get_queryset(self):
+        return Mission.objects.all().order_by('-created_at')
 
 class MissionView(TemplateView):
     template_name = 'mission/mission.html'
@@ -25,15 +27,6 @@ class MissionView(TemplateView):
         mission = get_object_or_404(Mission, pk=pk)
         context['mission'] = mission
         context['form'] = MissionForm()
-        status = mission.status
-        type = mission.type
-        paginator = Paginator(status,type, 3, 0)
-        page_number = self.request.GET.get('page', 1)
-        page = paginator.get_page(page_number)
-        context['paginator'] = paginator
-        context['page_obj'] = page
-        context['comments'] = page.object_list
-        context['is_paginated'] = page.has_other_pages()
         return context
 
 
