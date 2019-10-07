@@ -28,12 +28,12 @@ class StatusView(DetailView):
 
 
 class StatusCreateView(CreateView):
-    template_name = 'type/create.html'
+    template_name = 'status/create.html'
     model = Status
     form_class = StatusForm
 
     def get_success_url(self):
-        return reverse('type_view', kwargs={'pk': self.object.pk})
+        return reverse('status_view', kwargs={'pk': self.object.pk})
 
 
 def status_update_view(request, pk):

@@ -4,7 +4,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from webapp.forms import MissionForm
 from webapp.models import Mission
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView,CreateView
+from django.urls import reverse
 from .base_view import DetailView
 
 
@@ -28,22 +29,16 @@ class MissionView(DetailView):
 
 
 class MissionCreateView(View):
-    def get(self, request, *args, **kwargs):
-        form = MissionForm()
-        return render(request, 'mission/create.html', context={'form': form})
+    template_name = 'mission/create.html'
+    model = Mission
+    form_class = MissionForm
 
-    def post(self, request, *args, **kwargs):
-        form = MissionForm(data=request.POST)
-        if form.is_valid():
-            mission = Mission.objects.create(
-                summary=form.cleaned_data['summary'],
-                description=form.cleaned_data['description'],
-                status=form.cleaned_data['status'],
-                type=form.cleaned_data['type']
-            )
-            return redirect('mission_view', pk=mission.pk)
-        else:
-            return render(request, 'mission/create.html', context={'form': form})
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.object = None
+
+    def get_success_url(self):
+        return reverse('mission_view', kwargs={'pk': self.object.pk})
 
 
 def MissionUpdateView(request, pk):
