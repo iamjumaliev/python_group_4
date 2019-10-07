@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
 
 from webapp.forms import MissionForm, StatusForm, TypeForm
 from webapp.models import Mission, Type
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView,CreateView
 from .base_view import DetailView
 
 
@@ -26,21 +27,14 @@ class TypeView(DetailView):
     context_object = 'type'
     context_key = 'type'
 
-class TypeCreateView(View):
-    def get(self, request, *args, **kwargs):
-        form = TypeForm()
-        return render(request, 'type/create_type.html', context={'form': form})
+class TypeCreateView(CreateView):
 
-    def post(self, request, *args, **kwargs):
-        form = TypeForm(data=request.POST)
-        if form.is_valid():
-            type = Type.objects.create(
-                type=form.cleaned_data['type']
-            )
-            return redirect('type_view', pk=type.pk)
-        else:
-            return render(request, 'type/type_view.html', context={'form': form})
+    template_name = 'type/create.html'
+    model = Type
+    form_class = TypeForm
 
+    def get_success_url(self):
+        return reverse('type_view', kwargs={'pk': self.object.pk})
 
 def type_update_view(request, pk):
     type = get_object_or_404(Mission, pk=pk)
