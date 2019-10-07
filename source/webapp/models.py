@@ -4,11 +4,13 @@ class Mission(models.Model):
 
     summary = models.CharField(max_length=200, null=False, blank=False, verbose_name='Краткое описание')
 
-    description = models.CharField(max_length=3000, null=False, blank=False, verbose_name='Полное описание')
+    description = models.CharField(max_length=3000, null=False, blank=True, verbose_name='Полное описание')
 
-    status = models.ForeignKey('webapp.Status', related_name='mission_status', on_delete=models.PROTECT, verbose_name='Status')
+    status = models.ForeignKey('webapp.Status', related_name='mission_status', on_delete=models.PROTECT,
+                               verbose_name='Status')
 
-    type = models.ForeignKey('webapp.Type', related_name='mission_type', on_delete=models.PROTECT, verbose_name='Type')
+    type = models.ForeignKey('webapp.Type', related_name='mission_type', on_delete=models.PROTECT,
+                             verbose_name='Type')
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 

@@ -44,7 +44,7 @@ def status_update_view(request, pk):
         })
         return render(request, 'status/update_status.html', context={'form': form, 'status': status})
     elif request.method == 'POST':
-        form = MissionForm(data=request.POST)
+        form = StatusForm(data=request.POST)
         if form.is_valid():
             status.status = form.cleaned_data['status']
             status.save()

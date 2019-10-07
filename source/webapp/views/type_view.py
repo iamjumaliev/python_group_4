@@ -37,14 +37,14 @@ class TypeCreateView(CreateView):
         return reverse('type_view', kwargs={'pk': self.object.pk})
 
 def type_update_view(request, pk):
-    type = get_object_or_404(Mission, pk=pk)
+    type = get_object_or_404(Type, pk=pk)
     if request.method == 'GET':
         form = StatusForm(data={
             'status': type.type
         })
         return render(request, 'type/update_type.html', context={'form': form, 'type': type})
     elif request.method == 'POST':
-        form = MissionForm(data=request.POST)
+        form = TypeForm(data=request.POST)
         if form.is_valid():
             type.status = form.cleaned_data['type']
             type.save()
