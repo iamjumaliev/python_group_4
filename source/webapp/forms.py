@@ -1,26 +1,22 @@
 from django import forms
-from django.forms import widgets
 
-from webapp.models import Status,Type
-
-
-class MissionForm(forms.Form):
-
-    summary  = forms.CharField(max_length=200, label='Summary', required=True)
-
-    description  = forms.CharField(max_length=3000, label='Description', required=True,
-                           widget=widgets.Textarea)
-
-    status = forms.ModelChoiceField(queryset=Status.objects.all(), required=True, label='Status',
-                                      empty_label=None)
-
-    type = forms.ModelChoiceField(queryset=Type.objects.all(), required=True, label='Type',
-                                      empty_label=None)
-
-class StatusForm(forms.Form):
-
-    status = forms.CharField(max_length=20,label='Status',required=True)
+from webapp.models import Mission, Status,Type
 
 
-class TypeForm(forms.Form):
-    type = forms.CharField(max_length=20, label='Type', required=True)
+class MissionForm(forms.ModelForm):
+    class Meta:
+        model = Mission
+        exclude = ['created_at', 'updated_at']
+
+
+class StatusForm(forms.ModelForm):
+    class Meta:
+        model = Status
+        fields = ['status']
+
+
+
+class TypeForm(forms.ModelForm):
+    class Meta:
+        model = Type
+        fields = ['type']

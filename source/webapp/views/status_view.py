@@ -5,7 +5,7 @@ from webapp.forms import MissionForm, StatusForm
 from webapp.models import Status
 from django.views import View
 from django.views.generic import ListView, CreateView
-from .base_view import DetailView
+from .base_view import DetailView, UpdateView, DeleteView
 
 
 class StatusIndexView(ListView):
@@ -36,27 +36,19 @@ class StatusCreateView(CreateView):
         return reverse('status_view', kwargs={'pk': self.object.pk})
 
 
-def status_update_view(request, pk):
-    status = get_object_or_404(Status, pk=pk)
-    if request.method == 'GET':
-        form = StatusForm(data={
-            'status': status.status
-        })
-        return render(request, 'status/update_status.html', context={'form': form, 'status': status})
-    elif request.method == 'POST':
-        form = StatusForm(data=request.POST)
-        if form.is_valid():
-            status.status = form.cleaned_data['status']
-            status.save()
-            return redirect('status_view', pk=status.pk)
-        else:
-            return render(request, 'status/status_view.html', context={'form': form, 'status': status})
+class StatusUpdateView(UpdateView):
+    form = StatusForm
+    template = 'status/update.html'
+    model = Status
+    context_key = 'status'
+    context_object = 'status'
+    context_form = 'form'
+    redirect_url = 'status_view'
 
-
-def status_delete_view(request, pk):
-    status = get_object_or_404(Status, pk=pk)
-    if request.method == 'GET':
-        return render(request, 'status/status_delete.html', context={'status': status})
-    elif request.method == 'POST':
-        status.delete()
-        return redirect('index')
+class StatusDeleteView(DeleteView):
+    model = Status
+    template = 'status/delete.html'
+    redirect_url = 'index'
+    context_object =  'status'
+    context_key = 'status'
+    confirm_deletion = False

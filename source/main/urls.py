@@ -17,25 +17,25 @@ from django.contrib import admin
 from django.urls import path
 
 from webapp.views import IndexView, MissionView, MissionCreateView, MissionDeleteView, MissionUpdateView, \
-    StatusCreateView, status_update_view, status_delete_view, TypeView, TypeCreateView, type_update_view, \
-    type_delete_view, TypeIndexView,  StatusIndexView, StatusView
+    StatusCreateView, TypeView, TypeCreateView, TypeUpdateView, \
+    TypeDeleteView, TypeIndexView,  StatusIndexView, StatusView,StatusUpdateView,StatusDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('mission/<int:pk>/', MissionView.as_view(), name='mission_view'),
-    path('mission/add/', MissionCreateView.as_view(), name='mission_add'),
-    path('mission/<int:pk>/update/', MissionUpdateView, name='mission_update'),
-    path('mission/<int:pk>/delete/', MissionDeleteView, name='mission_delete'),
+    path('add/', MissionCreateView.as_view(), name='add'),
+    path('mission/<int:pk>/update/', MissionUpdateView.as_view(), name='mission_update'),
+    path('mission/<int:pk>/delete/', MissionDeleteView.as_view(), name='mission_delete'),
     path('status/', StatusIndexView.as_view(), name='status'),
     path('status/<int:pk>/', StatusView.as_view(), name='status_view'),
     path('status/add/',  StatusCreateView.as_view(), name='status_add'),
-    path('status/<int:pk>/update/',  status_update_view, name='status_update'),
-    path('status/<int:pk>/delete/',status_delete_view, name='status_delete'),
+    path('status/<int:pk>/update/',  StatusUpdateView.as_view(), name='status_update'),
+    path('status/<int:pk>/delete/',StatusDeleteView.as_view(), name='status_delete'),
     path('type/', TypeIndexView.as_view(), name='type'),
     path('type/<int:pk>/', TypeView.as_view(), name='type_view'),
     path('type/add/', TypeCreateView.as_view(), name='type_add'),
-    path('type/<int:pk>/update/', type_update_view, name='type_update'),
-    path('type/<int:pk>/delete/', type_delete_view, name='type_delete')
+    path('type/<int:pk>/update/', TypeUpdateView.as_view(), name='type_update'),
+    path('type/<int:pk>/delete/', TypeDeleteView.as_view(), name='type_delete')
 
 ]

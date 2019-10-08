@@ -5,7 +5,7 @@ from webapp.forms import MissionForm, StatusForm, TypeForm
 from webapp.models import Mission, Type
 from django.views import View
 from django.views.generic import ListView,CreateView
-from .base_view import DetailView
+from .base_view import DetailView, UpdateView, DeleteView
 
 
 class TypeIndexView(ListView):
@@ -36,27 +36,20 @@ class TypeCreateView(CreateView):
     def get_success_url(self):
         return reverse('type_view', kwargs={'pk': self.object.pk})
 
-def type_update_view(request, pk):
-    type = get_object_or_404(Type, pk=pk)
-    if request.method == 'GET':
-        form = StatusForm(data={
-            'status': type.type
-        })
-        return render(request, 'type/update_type.html', context={'form': form, 'type': type})
-    elif request.method == 'POST':
-        form = TypeForm(data=request.POST)
-        if form.is_valid():
-            type.status = form.cleaned_data['type']
-            type.save()
-            return redirect('type_view', pk=type.pk)
-        else:
-            return render(request, 'type/type_view.html', context={'form': form, 'type': type})
+class TypeUpdateView(UpdateView):
+    form = TypeForm
+    template = 'type/update.html'
+    model = Type
+    context_key = 'type'
+    context_object = 'type'
+    context_form = 'form'
+    redirect_url = 'type_view'
 
+class TypeDeleteView(DeleteView):
+    model = Type
+    template = 'type/delete.html'
+    redirect_url = 'index'
+    context_object =  'type'
+    context_key = 'type'
+    confirm_deletion = False
 
-def type_delete_view(request, pk):
-    type = get_object_or_404(Type, pk=pk)
-    if request.method == 'GET':
-        return render(request, 'type/type_delete.html', context={'type': type})
-    elif request.method == 'POST':
-        type.delete()
-        return redirect('type')
