@@ -6,14 +6,14 @@ class Mission(models.Model):
 
     description = models.CharField(max_length=3000, null=False, blank=True, verbose_name='Полное описание')
 
-    status = models.ForeignKey('webapp.Status', related_name='mission_status',null=True, blank=False,
+    status = models.ForeignKey('webapp.Status', related_name='mission_status',
                                on_delete=models.PROTECT,verbose_name='Status')
 
     type = models.ForeignKey('webapp.Type', related_name='mission_type', on_delete=models.PROTECT,
                              verbose_name='Type')
 
     project = models.ForeignKey('webapp.Project',related_name='mission_project', on_delete=models.PROTECT,
-                                verbose_name='Project')
+                                null=True, blank=False,verbose_name='Project')
 
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 
@@ -41,7 +41,7 @@ class Type(models.Model):
 
 class Project(models.Model):
 
-    name = models.CharField(max_length=200,ull=False, blank=False, verbose_name='Название проекта')
+    name = models.CharField(max_length=200,null=False, blank=False, verbose_name='Название проекта')
 
     description = models.CharField(max_length=2000, null=False, blank=True, verbose_name='Описание')
 
