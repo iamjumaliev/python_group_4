@@ -1,11 +1,8 @@
-from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-
-from webapp.forms import MissionForm, StatusForm
+from webapp.forms import  StatusForm
 from webapp.models import Status
-from django.views import View
-from django.views.generic import ListView, CreateView
-from .base_view import DetailView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView,DeleteView
+from .base_view import DetailView, UpdateView
 
 
 class StatusIndexView(ListView):
@@ -47,8 +44,6 @@ class StatusUpdateView(UpdateView):
 
 class StatusDeleteView(DeleteView):
     model = Status
-    template = 'status/delete.html'
-    redirect_url = 'index'
-    context_object =  'status'
-    context_key = 'status'
-    confirm_deletion = False
+    template_name = 'status/delete.html'
+    success_url = 'status/status.html'
+    context_object_name =  'status'
