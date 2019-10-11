@@ -2,6 +2,7 @@
 {% block content %}
     <h1 class="my-3">{{ project.name }}</h1>
     <p>Дата создания: {{ project.created_at }}</p>
+    <p>Описание: {{ project.description }}</p>
     <p>Задачи:</p>
         {% for mission in project.mission_project.all %}
             <p>{{ mission.summary }}</p>

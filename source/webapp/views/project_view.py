@@ -1,4 +1,4 @@
-from webapp.forms import MissionForm
+from webapp.forms import  ProjectForm
 from webapp.models import Project
 from django.views.generic import ListView,CreateView,DeleteView,UpdateView,DetailView
 from django.urls import reverse, reverse_lazy
@@ -24,7 +24,24 @@ class ProjectView(DetailView):
     context_object_name = 'project'
 
 
+class ProjectCreateView(CreateView):
 
+    template_name = 'project/create.html'
+    model = Project
+    form_class = ProjectForm
+    context_object_name = 'project'
+
+    def get_success_url(self):
+        return reverse('project_view', kwargs={'pk': self.object.pk})
+
+class ProjectUpdateView(UpdateView):
+    form_class = ProjectForm
+    template_name = 'project/update.html'
+    model = Project
+    context_object_name = 'project'
+
+    def get_success_url(self):
+        return reverse('project_view', kwargs={'pk': self.object.pk})
 
 
 class ProjectDeleteView(DeleteView):

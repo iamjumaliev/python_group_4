@@ -37,7 +37,6 @@ class TypeUpdateView(UpdateView):
     form_class = TypeForm
     template_name = 'type/update.html'
     model = Type
-    context_key = 'type'
     context_object_name = 'type'
 
     def get_success_url(self):
