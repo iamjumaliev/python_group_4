@@ -1,8 +1,8 @@
 from webapp.forms import MissionForm
 from webapp.models import Mission
-from django.views.generic import ListView,CreateView,DeleteView,UpdateView
+from django.views.generic import ListView,CreateView,DeleteView,UpdateView,DetailView
 from django.urls import reverse, reverse_lazy
-from .base_view import DetailView
+
 
 
 class IndexView(ListView):
@@ -19,8 +19,7 @@ class IndexView(ListView):
 class MissionView(DetailView):
     template_name = 'mission/mission.html'
     model = Mission
-    context_key = 'mission'
-    context_object= 'mission'
+    context_object_name = 'mission'
 
 
 

@@ -21,8 +21,7 @@ class TypeView(DetailView):
 
     template_name = 'type/type_view.html'
     model = Type
-    context_object = 'type'
-    context_key = 'type'
+    context_object_name = 'type'
 
 class TypeCreateView(CreateView):
 

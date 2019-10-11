@@ -1,8 +1,8 @@
 from django.urls import reverse, reverse_lazy
 from webapp.forms import  StatusForm
 from webapp.models import Status
-from django.views.generic import ListView, CreateView,DeleteView,UpdateView
-from .base_view import DetailView
+from django.views.generic import ListView, CreateView,DeleteView,UpdateView,DetailView
+
 
 
 class StatusIndexView(ListView):
@@ -20,8 +20,7 @@ class StatusView(DetailView):
 
     template_name = 'status/status_view.html'
     model = Status
-    context_object = 'status'
-    context_key = 'status'
+    context_object_name = 'status'
 
 
 class StatusCreateView(CreateView):
