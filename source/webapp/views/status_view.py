@@ -1,8 +1,8 @@
 from django.urls import reverse
 from webapp.forms import  StatusForm
 from webapp.models import Status
-from django.views.generic import ListView, CreateView,DeleteView
-from .base_view import DetailView, UpdateView
+from django.views.generic import ListView, CreateView,DeleteView,UpdateView
+from .base_view import DetailView
 
 
 class StatusIndexView(ListView):
@@ -34,13 +34,13 @@ class StatusCreateView(CreateView):
 
 
 class StatusUpdateView(UpdateView):
-    form = StatusForm
-    template = 'status/update.html'
+    form_class = StatusForm
+    template_name = 'status/update.html'
     model = Status
-    context_key = 'status'
-    context_object = 'status'
-    context_form = 'form'
-    redirect_url = 'status_view'
+    context_object_name = 'status'
+
+    def get_success_url(self):
+        return reverse('status_view', kwargs={'pk': self.object.pk})
 
 class StatusDeleteView(DeleteView):
     model = Status
