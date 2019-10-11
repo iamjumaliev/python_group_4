@@ -1,8 +1,8 @@
 from django.urls import reverse
 from webapp.forms import  TypeForm
 from webapp.models import  Type
-from django.views.generic import ListView,CreateView,DeleteView
-from .base_view import DetailView, UpdateView
+from django.views.generic import ListView,CreateView,DeleteView,UpdateView
+from .base_view import DetailView
 
 
 class TypeIndexView(ListView):
@@ -34,13 +34,14 @@ class TypeCreateView(CreateView):
         return reverse('type_view', kwargs={'pk': self.object.pk})
 
 class TypeUpdateView(UpdateView):
-    form = TypeForm
-    template = 'type/update.html'
+    form_class = TypeForm
+    template_name = 'type/update.html'
     model = Type
     context_key = 'type'
-    context_object = 'type'
-    context_form = 'form'
-    redirect_url = 'type_view'
+    context_object_name = 'type'
+
+    def get_success_url(self):
+        return reverse('type_view', kwargs={'pk': self.object.pk})
 
 class TypeDeleteView(DeleteView):
     model = Type
