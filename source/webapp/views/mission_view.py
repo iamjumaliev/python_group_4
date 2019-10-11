@@ -1,8 +1,8 @@
 from webapp.forms import MissionForm
 from webapp.models import Mission
-from django.views.generic import ListView,CreateView,DeleteView
+from django.views.generic import ListView,CreateView,DeleteView,UpdateView
 from django.urls import reverse
-from .base_view import DetailView, UpdateView
+from .base_view import DetailView
 
 
 class IndexView(ListView):
@@ -35,13 +35,13 @@ class MissionCreateView(CreateView):
 
 
 class MissionUpdateView(UpdateView):
-    form = MissionForm
-    template = 'mission/update.html'
+    form_class = MissionForm
+    template_name = 'mission/update.html'
     model = Mission
-    context_key = 'mission'
-    context_object = 'mission'
-    context_form = 'form'
-    redirect_url = 'mission_view'
+    context_object_name = 'mission'
+
+    def get_success_url(self):
+        return reverse('mission_view', kwargs={'pk': self.object.pk})
 
 class MissionDeleteView(DeleteView):
     model = Mission
