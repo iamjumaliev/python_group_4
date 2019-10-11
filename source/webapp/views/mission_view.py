@@ -1,12 +1,8 @@
-from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404, redirect
-
 from webapp.forms import MissionForm
 from webapp.models import Mission
-from django.views import View
-from django.views.generic import ListView,CreateView
+from django.views.generic import ListView,CreateView,DeleteView
 from django.urls import reverse
-from .base_view import DetailView, DeleteView, UpdateView
+from .base_view import DetailView, UpdateView
 
 
 class IndexView(ListView):
@@ -49,8 +45,7 @@ class MissionUpdateView(UpdateView):
 
 class MissionDeleteView(DeleteView):
     model = Mission
-    template = 'mission/delete.html'
-    redirect_url = 'index'
-    context_object =  'mission'
-    context_key = 'mission'
-    confirm_deletion = True
+    template_name = 'mission/delete.html'
+    success_url = 'index'
+    context_object_name =  'mission'
+
