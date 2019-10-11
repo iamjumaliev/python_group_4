@@ -1,4 +1,4 @@
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from webapp.forms import  TypeForm
 from webapp.models import  Type
 from django.views.generic import ListView,CreateView,DeleteView,UpdateView
@@ -47,6 +47,6 @@ class TypeUpdateView(UpdateView):
 class TypeDeleteView(DeleteView):
     model = Type
     template_name = 'type/delete.html'
-    success_url = 'type/type.html'
+    success_url = reverse_lazy('type')
     context_object_name =  'type'
 

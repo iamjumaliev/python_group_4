@@ -1,4 +1,4 @@
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from webapp.forms import  StatusForm
 from webapp.models import Status
 from django.views.generic import ListView, CreateView,DeleteView,UpdateView
@@ -45,5 +45,5 @@ class StatusUpdateView(UpdateView):
 class StatusDeleteView(DeleteView):
     model = Status
     template_name = 'status/delete.html'
-    success_url = 'status/status.html'
+    success_url = reverse_lazy('status')
     context_object_name =  'status'

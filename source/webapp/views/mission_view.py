@@ -1,7 +1,7 @@
 from webapp.forms import MissionForm
 from webapp.models import Mission
 from django.views.generic import ListView,CreateView,DeleteView,UpdateView
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from .base_view import DetailView
 
 
@@ -46,6 +46,6 @@ class MissionUpdateView(UpdateView):
 class MissionDeleteView(DeleteView):
     model = Mission
     template_name = 'mission/delete.html'
-    success_url = 'index'
+    success_url = reverse_lazy('index')
     context_object_name =  'mission'
 
