@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Mission, Status, Type
+from .models import Mission, Status, Type, Project
+
 
 class MissionAdmin(admin.ModelAdmin):
     list_display = ['pk', 'summary', 'status', 'created_at']
@@ -12,3 +13,4 @@ class MissionAdmin(admin.ModelAdmin):
 admin.site.register(Mission)
 admin.site.register(Status)
 admin.site.register(Type)
+admin.site.register(Project)
