@@ -1,11 +1,8 @@
-from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-
-from webapp.forms import MissionForm, StatusForm, TypeForm
-from webapp.models import Mission, Type
-from django.views import View
-from django.views.generic import ListView,CreateView
-from .base_view import DetailView, UpdateView, DeleteView
+from webapp.forms import  TypeForm
+from webapp.models import  Type
+from django.views.generic import ListView,CreateView,DeleteView
+from .base_view import DetailView, UpdateView
 
 
 class TypeIndexView(ListView):
@@ -47,9 +44,7 @@ class TypeUpdateView(UpdateView):
 
 class TypeDeleteView(DeleteView):
     model = Type
-    template = 'type/delete.html'
-    redirect_url = 'index'
-    context_object =  'type'
-    context_key = 'type'
-    confirm_deletion = False
+    template_name = 'type/delete.html'
+    success_url = 'type/type.html'
+    context_object_name =  'type'
 
