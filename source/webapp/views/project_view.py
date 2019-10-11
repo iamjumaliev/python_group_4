@@ -24,6 +24,7 @@ class ProjectView(DetailView):
     context_object_name = 'project'
 
 
+
 class ProjectCreateView(CreateView):
 
     template_name = 'project/create.html'

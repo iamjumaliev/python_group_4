@@ -1,8 +1,8 @@
 from django.urls import reverse, reverse_lazy
 from webapp.forms import  TypeForm
 from webapp.models import  Type
-from django.views.generic import ListView,CreateView,DeleteView,UpdateView
-from .base_view import DetailView
+from django.views.generic import ListView,CreateView,DeleteView,UpdateView,DetailView
+
 
 
 class TypeIndexView(ListView):

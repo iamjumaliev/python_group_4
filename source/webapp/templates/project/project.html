@@ -4,8 +4,9 @@
     <p>Дата создания: {{ project.created_at }}</p>
     <p>Описание: {{ project.description }}</p>
     <p>Задачи:</p>
-        {% for mission in project.mission_project.all %}
-            <p>{{ mission.summary }}</p>
+        {% for mission in project.mission_project.all.order_by %}
+            <p>{{ mission.summary }} <br> Создан {{ mission.created_at }} Статус {{ mission.status }}</p>
+
         {% endfor %}
     <div class="pre">{{ mission.description }}</div>
 {% endblock %}
