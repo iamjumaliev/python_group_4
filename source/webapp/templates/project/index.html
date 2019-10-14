@@ -3,6 +3,9 @@
     <li>
        <a href="{% url 'project_add' %}" class="link">Add project</a>
     </li>
+    <div class="link">
+        {% include 'partial/simple_search.html' %}
+    </div>
 {% endblock %}
 {% block content %}
     <h1 class="mt-3">Добро пожаловать</h1>
