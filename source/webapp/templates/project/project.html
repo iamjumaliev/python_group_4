@@ -4,10 +4,11 @@
     <p>Дата создания: {{ project.created_at }}</p>
     <p>Описание: {{ project.description }}</p>
     <p>Задачи:</p>
-        {% for mission in project.mission_project.all.order_by %}
+    {% if is_paginated %}
+        {% for mission in missions %}
             <p>{{ mission.summary }} <br> Создан {{ mission.created_at }} Статус {{ mission.status }}</p>
-            <hr>
-
         {% endfor %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
     <div class="pre">{{ mission.description }}</div>
 {% endblock %}
