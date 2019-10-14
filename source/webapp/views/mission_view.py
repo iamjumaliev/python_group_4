@@ -26,10 +26,10 @@ class IndexView(ListView):
         queryset = super().get_queryset()
         if self.search_value:
             queryset = queryset.filter(
-                Q(title__icontains=self.search_value)
-                | Q(author__icontains=self.search_value)
+                Q(summary__icontains=self.search_value)
+                | Q(description__icontains=self.search_value)
             )
-        return queryset, Mission.objects.all().order_by('-created_at')
+        return queryset
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
