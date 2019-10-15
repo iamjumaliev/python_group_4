@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block menu %}
-    <div class="link">
+    <div class="search">
         {% include 'partial/simple_search.html' %}
     </div>
 {% endblock %}
@@ -14,7 +14,7 @@
                         <h2 class="card-text card-link">
                             <a href="{% url 'mission_view' mission.pk %}">{{ mission.summary }}</a>
                         </h2>
-                        <h3>
+                        <h3 style="height: 40px; text-overflow: ellipsis; white-space: nowrap; overflow: hidden">
                             {{ mission.description }}
                         </h3>
                         <p class="card-text">{{ mission.get_status_display }}</p>

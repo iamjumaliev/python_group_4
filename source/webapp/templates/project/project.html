@@ -7,6 +7,7 @@
     {% if is_paginated %}
         {% for mission in missions %}
             <p>{{ mission.summary }} <br> Создан {{ mission.created_at }} Статус {{ mission.status }}</p>
+            <p>{{ mission.type }}</p>
         {% endfor %}
         {% include 'partial/pagination.html' %}
     {% endif %}
