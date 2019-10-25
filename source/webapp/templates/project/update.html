@@ -6,7 +6,7 @@
     <h1>Update project
         <a href="{% url 'webapp:project_view' project.pk %}">{{ project.name }}</a>
     </h1>
-    <form method="POST" action="{% url 'project_update' project.pk %}">
+    <form method="POST" action="{% url 'webapp:project_update' project.pk %}">
         {% include 'partial/form.html' with button_text="Update" %}
     </form>
 {% endblock %}

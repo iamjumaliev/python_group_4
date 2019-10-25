@@ -13,6 +13,6 @@
     <form method="POST" action="{% url 'webapp:mission_delete' mission.pk %}" class="text-center">
         {% csrf_token %}
         <p><input type="submit" class = 'btn' value="Confirm"></p>
-        <p><a href="{% url 'index'  %}" class = 'btn'>Cancel</a></p>
+        <p><a href="{% url 'webapp:index'  %}" class = 'btn'>Cancel</a></p>
     </form>
 {% endblock %}

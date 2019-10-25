@@ -1,16 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Create status{% endblock %}
-
 {% block content %}
-
    <h1>Create status</h1>
-
    <form method="POST" action="{% url "webapp:status_add" %}">
-
        {% csrf_token %}
-
              {% include 'partial/form.html' with button_text="Create" %}
-
    </form>
-
 {% endblock %}
