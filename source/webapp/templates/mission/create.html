@@ -1,17 +1,11 @@
 {% extends 'base.html' %}
 {% block title %}Create Mission{% endblock %}
-
 {% block content %}
-
    <h1>Create Task</h1>
-
    <form method="POST" action="{% url "add" %}">
-
        {% csrf_token %}
 
              {% include 'partial/form.html' with button_text="Create" %}
-
    </form>
-
 {% endblock %}
 
