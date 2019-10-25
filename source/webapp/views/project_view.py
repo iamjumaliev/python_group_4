@@ -104,7 +104,7 @@ class ProjectUpdateView(UpdateView):
 class ProjectDeleteView(DeleteView):
     model = Project
     template_name = 'project/delete.html'
-    success_url = reverse_lazy('project')
+    success_url = reverse_lazy('webapp:project')
     context_object_name =  'project'
 
     def dispatch(self, request, *args, **kwargs):

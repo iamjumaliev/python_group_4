@@ -55,7 +55,7 @@ class StatusUpdateView(UpdateView):
 class StatusDeleteView(DeleteView):
     model = Status
     template_name = 'status/delete.html'
-    success_url = reverse_lazy('status')
+    success_url = reverse_lazy('webapp:status')
     context_object_name =  'status'
 
     def dispatch(self, request, *args, **kwargs):

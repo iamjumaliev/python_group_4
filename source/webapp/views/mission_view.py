@@ -85,7 +85,7 @@ class MissionUpdateView(UpdateView):
 class MissionDeleteView(DeleteView):
     model = Mission
     template_name = 'mission/delete.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('webapp:index')
     context_object_name =  'mission'
 
     def dispatch(self, request, *args, **kwargs):

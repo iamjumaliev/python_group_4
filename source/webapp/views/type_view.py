@@ -56,7 +56,7 @@ class TypeUpdateView(UpdateView):
 class TypeDeleteView(DeleteView):
     model = Type
     template_name = 'type/delete.html'
-    success_url = reverse_lazy('type')
+    success_url = reverse_lazy('webapp:type')
     context_object_name =  'type'
 
     def dispatch(self, request, *args, **kwargs):
