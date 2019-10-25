@@ -1,15 +1,12 @@
 {% extends 'base.html' %}
-
 {% block title %}Update Type{% endblock %}
-
 {% block menu %}
 {% endblock %}
-
 {% block content %}
     <h1>Update Task
-        <a href="{% url 'type_view' type.pk %}">{{ type.type }}</a>
+        <a href="{% url 'webapp:type_view' type.pk %}">{{ type.type }}</a>
     </h1>
-    <form method="POST" action="{% url 'type_update' type.pk %}">
+    <form method="POST" action="{% url 'webapp:type_update' type.pk %}">
         {% include 'partial/form.html' with button_text="Update" %}
     </form>
 {% endblock %}

@@ -15,13 +15,13 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-text card-link">
-                            <a href="{% url 'project_view' project.pk %}">{{ project.name }}</a>
+                            <a href="{% url 'webapp:project_view' project.pk %}">{{ project.name }}</a>
                         </h2>
                         <li>
-                            <a href="{% url 'project_delete' project.pk %}">Delete project</a>
+                            <a href="{% url 'webapp:project_delete' project.pk %}">Delete project</a>
                         </li>
                         <li>
-                            <a href="{% url 'project_update' project.pk %}">Update project</a>
+                            <a href="{% url 'webapp:project_update' project.pk %}">Update project</a>
                         </li>
                     </div>
                 </div>

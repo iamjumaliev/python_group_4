@@ -12,13 +12,13 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-text card-link">
-                            <a href="{% url 'type_view' type.pk %}">{{ type.type }}</a>
+                            <a href="{% url 'webapp:type_view' type.pk %}">{{ type.type }}</a>
                         </h2>
                         <li>
-                            <a href="{% url 'type_delete' type.pk %}">Delete type</a>
+                            <a href="{% url 'webapp:type_delete' type.pk %}">Delete type</a>
                         </li>
                         <li>
-                            <a href="{% url 'type_update' type.pk %}">Update type</a>
+                            <a href="{% url 'webapp:type_update' type.pk %}">Update type</a>
                         </li>
                     </div>
                 </div>

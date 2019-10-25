@@ -12,13 +12,13 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-text card-link">
-                            <a href="{% url 'status_view' status.pk %}">{{ status.status }}</a>
+                            <a href="{% url 'webapp:status_view' status.pk %}">{{ status.status }}</a>
                         </h2>
                         <li>
-                            <a href="{% url 'status_delete' status.pk %}">Delete status</a>
+                            <a href="{% url 'webapp:status_delete' status.pk %}">Delete status</a>
                         </li>
                         <li>
-                            <a href="{% url 'status_update' status.pk %}">Update status</a>
+                            <a href="{% url 'webapp:status_update' status.pk %}">Update status</a>
                         </li>
                     </div>
                 </div>

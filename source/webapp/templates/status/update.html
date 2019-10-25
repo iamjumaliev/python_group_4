@@ -1,15 +1,12 @@
 {% extends 'base.html' %}
-
 {% block title %}Update Status{% endblock %}
-
 {% block menu %}
 {% endblock %}
-
 {% block content %}
     <h1>Update Task
-        <a href="{% url 'mission_view' status.pk %}">{{ status.status }}</a>
+        <a href="{% url 'webapp:mission_view' status.pk %}">{{ status.status }}</a>
     </h1>
-    <form method="POST" action="{% url 'status_update' status.pk %}">
+    <form method="POST" action="{% url 'webapp:status_update' status.pk %}">
         {% include 'partial/form.html' with button_text="Update" %}
     </form>
 {% endblock %}
