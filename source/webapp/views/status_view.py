@@ -35,7 +35,7 @@ class StatusCreateView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('status_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:status_view', kwargs={'pk': self.object.pk})
 
 
 class StatusUpdateView(UpdateView):
@@ -50,7 +50,7 @@ class StatusUpdateView(UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('status_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:status_view', kwargs={'pk': self.object.pk})
 
 class StatusDeleteView(DeleteView):
     model = Status

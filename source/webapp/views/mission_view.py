@@ -65,7 +65,7 @@ class MissionCreateView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('mission_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:mission_view', kwargs={'pk': self.object.pk})
 
 
 class MissionUpdateView(UpdateView):
@@ -80,7 +80,7 @@ class MissionUpdateView(UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('mission_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:mission_view', kwargs={'pk': self.object.pk})
 
 class MissionDeleteView(DeleteView):
     model = Mission

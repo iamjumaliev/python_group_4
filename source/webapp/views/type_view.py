@@ -37,7 +37,7 @@ class TypeCreateView(CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('type_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:type_view', kwargs={'pk': self.object.pk})
 
 class TypeUpdateView(UpdateView):
     form_class = TypeForm
@@ -51,7 +51,7 @@ class TypeUpdateView(UpdateView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('type_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:type_view', kwargs={'pk': self.object.pk})
 
 class TypeDeleteView(DeleteView):
     model = Type
