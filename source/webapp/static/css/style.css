@@ -3,6 +3,12 @@
     margin-right: 5px;
     display: inline-block;
 }
+.menu-right {
+    float: right;
+}
+.menu {
+    display: block;
+}
 
 .pagination {
     text-align: center;
