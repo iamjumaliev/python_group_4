@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from webapp.forms import  TypeForm
 from webapp.models import  Type
@@ -30,6 +31,11 @@ class TypeCreateView(CreateView):
     form_class = TypeForm
     context_object_name = 'type'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse('type_view', kwargs={'pk': self.object.pk})
 
@@ -39,6 +45,11 @@ class TypeUpdateView(UpdateView):
     model = Type
     context_object_name = 'type'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse('type_view', kwargs={'pk': self.object.pk})
 
@@ -47,4 +58,9 @@ class TypeDeleteView(DeleteView):
     template_name = 'type/delete.html'
     success_url = reverse_lazy('type')
     context_object_name =  'type'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
 

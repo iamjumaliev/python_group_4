@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.shortcuts import redirect
 from django.utils.http import urlencode
 
 from webapp.forms import  ProjectForm,MissionForm,SimpleSearchForm
@@ -77,6 +78,11 @@ class ProjectCreateView(CreateView):
     form_class = ProjectForm
     context_object_name = 'project'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse('project_view', kwargs={'pk': self.object.pk})
 
@@ -85,6 +91,11 @@ class ProjectUpdateView(UpdateView):
     template_name = 'project/update.html'
     model = Project
     context_object_name = 'project'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse('project_view', kwargs={'pk': self.object.pk})
@@ -95,3 +106,8 @@ class ProjectDeleteView(DeleteView):
     template_name = 'project/delete.html'
     success_url = reverse_lazy('project')
     context_object_name =  'project'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)

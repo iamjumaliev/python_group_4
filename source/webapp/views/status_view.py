@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from webapp.forms import  StatusForm
 from webapp.models import Status
@@ -28,6 +29,11 @@ class StatusCreateView(CreateView):
     model = Status
     form_class = StatusForm
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse('status_view', kwargs={'pk': self.object.pk})
 
@@ -38,6 +44,11 @@ class StatusUpdateView(UpdateView):
     model = Status
     context_object_name = 'status'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse('status_view', kwargs={'pk': self.object.pk})
 
@@ -46,3 +57,8 @@ class StatusDeleteView(DeleteView):
     template_name = 'status/delete.html'
     success_url = reverse_lazy('status')
     context_object_name =  'status'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)

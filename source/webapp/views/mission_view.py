@@ -1,4 +1,5 @@
 from django.db.models import Q
+from django.shortcuts import redirect
 from django.utils.http import urlencode
 
 from webapp.forms import MissionForm,SimpleSearchForm
@@ -58,6 +59,10 @@ class MissionCreateView(CreateView):
     model = Mission
     form_class = MissionForm
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse('mission_view', kwargs={'pk': self.object.pk})
@@ -69,6 +74,11 @@ class MissionUpdateView(UpdateView):
     model = Mission
     context_object_name = 'mission'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
     def get_success_url(self):
         return reverse('mission_view', kwargs={'pk': self.object.pk})
 
@@ -77,4 +87,10 @@ class MissionDeleteView(DeleteView):
     template_name = 'mission/delete.html'
     success_url = reverse_lazy('index')
     context_object_name =  'mission'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('accounts:login')
+        return super().dispatch(request, *args, **kwargs)
+
 
