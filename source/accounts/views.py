@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 
 
+
 def login_view(request):
     context = {}
     if request.method == 'POST':
