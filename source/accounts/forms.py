@@ -39,6 +39,14 @@ class UserCreationForm(forms.ModelForm):
             raise ValidationError('Error, first or last name must be filled', code='name_is_empty')
         return self.cleaned_data
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        try:
+            User.objects.get(email=email)
+            raise ValidationError('Email already registered.', code='email_registered')
+        except User.DoesNotExist:
+            return email
+
     class Meta:
 
         model = User
