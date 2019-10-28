@@ -47,6 +47,11 @@
                                 Вход
                             </a>
                         </li>
+                        <li class="menu-right">
+                            <a href="{% url 'accounts:create' %}" class="nav-link">
+                                Регистрация
+                            </a>
+                        </li>
                     {% endif %}
                     {% block menu %}
                     {% endblock %}
