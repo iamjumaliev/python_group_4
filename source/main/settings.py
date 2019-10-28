@@ -123,6 +123,5 @@ STATIC_URL = '/static/'
 
 LOGIN_URL = "accounts:login"
 
-LOGIN_REDIRECT_URL = "webapp:article_index"
-
-LOGOUT_REDIRECT_URL = "webapp:article_index"
+LOGIN_REDIRECT_URL = "webapp:index"
+LOGOUT_REDIRECT_URL = "webapp:index"

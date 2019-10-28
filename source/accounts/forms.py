@@ -9,6 +9,8 @@ class UserCreationForm(forms.ModelForm):
 
     password_confirm = forms.CharField(label="Подтвердите пароль", widget=forms.PasswordInput, strip=False)
 
+    email = forms.EmailField(label='email', required=True)
+
     def clean_password_confirm(self):
 
         password = self.cleaned_data.get("password")
@@ -51,4 +53,4 @@ class UserCreationForm(forms.ModelForm):
 
         model = User
 
-        fields = ['username', 'password', 'password_confirm', 'first_name', 'last_name']
+        fields = ['username', 'password', 'password_confirm', 'first_name', 'last_name' , 'email']
