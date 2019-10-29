@@ -40,7 +40,11 @@
                                 Выход
                             </a>
                         </li>
-                        <li class="menu-right">Привет, {{ user.username }}!</li>
+                        <li>
+                            <a href="{% url 'accounts:user_detail' request.user.pk %}" class="nav-link">
+                                Привет, {{ request.user }}!
+                            </a>
+                        </li>
                     {% else %}
                         <li class="menu-right">
                             <a href="{% url 'accounts:login' %}" class="nav-link">
