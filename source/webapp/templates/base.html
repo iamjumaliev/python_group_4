@@ -33,6 +33,11 @@
                     <li>
                         <a href="{% url 'webapp:project'%}" class="link" >Projects</a>
                     </li>
+                    <li>
+                        <a  href="{% url 'accounts:users_list'%}" class="link">
+                            Пользователи
+                        </a>
+                    </li>
                     {% if user.is_authenticated %}
                         {% block menu_links %}{% endblock %}
                         <li class="menu-right">
