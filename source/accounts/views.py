@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from .forms import UserCreationForm
 
 
+
 def login_view(request):
     context = {}
     if request.method == 'POST':
@@ -14,7 +15,7 @@ def login_view(request):
             return redirect('webapp:index')
         else:
             context['has_error'] = True
-    return render(request, 'login.html', context=context)
+    return render(request, 'registration/login.html', context=context)
 
 
 def logout_view(request):
@@ -31,4 +32,6 @@ def register_view(request, *args, **kwargs):
     else:
         form = UserCreationForm()
     return render(request, 'user_create.html', context={'form': form})
+
+
 # Create your views here.

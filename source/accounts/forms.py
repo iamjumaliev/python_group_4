@@ -5,11 +5,14 @@ from django.core.exceptions import ValidationError
 
 
 class UserCreationForm(forms.ModelForm):
-    password = forms.CharField(label="Пароль", strip=False, widget=forms.PasswordInput)
 
-    password_confirm = forms.CharField(label="Подтвердите пароль", widget=forms.PasswordInput, strip=False)
-
-    email = forms.EmailField(label='email', required=True)
+    password = forms.CharField(label="Пароль", strip=False,
+                               widget=forms.PasswordInput(attrs={'placeholder': u'Enter password'}))
+    password_confirm = forms.CharField(label="Подтвердите пароль",
+                                       widget=forms.PasswordInput(attrs={'placeholder': u'Enter password confirm'}),
+                                        strip=False)
+    email = forms.EmailField(label='email', required=True,
+                             widget=forms.EmailInput(attrs={'placeholder': u'Enter email'}))
 
     def clean_password_confirm(self):
 
@@ -53,4 +56,11 @@ class UserCreationForm(forms.ModelForm):
 
         model = User
 
-        fields = ['username', 'password', 'password_confirm', 'first_name', 'last_name' , 'email']
+        fields = ['username', 'password', 'password_confirm', 'first_name', 'last_name', 'email']
+
+        widgets = {
+            'username': forms.TextInput(attrs={'placeholder': u'Enter username'}),
+            'first_name': forms.TextInput(attrs={'placeholder': u'Enter first name'}),
+            'last_name': forms.TextInput(attrs={'placeholder': u'Enter first name'})
+        }
+
