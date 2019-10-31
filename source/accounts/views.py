@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 from django.views.generic import DetailView, UpdateView, ListView
 
+from accounts.models import UserProfile
 from .forms import UserCreationForm, UserChangePasswordForm
 
 
@@ -43,6 +44,8 @@ class UserDetailView(DetailView):
     template_name = 'user_detail.html'
     context_object_name = 'user_obj'
 
+
+
 class UserChangeView(UserPassesTestMixin, UpdateView):
     model = User
     template_name = 'user_update.html'
@@ -52,9 +55,23 @@ class UserChangeView(UserPassesTestMixin, UpdateView):
     def test_func(self):
         return self.get_object() == self.request.user
 
+
     def get_success_url(self):
         return reverse('accounts:user_detail', kwargs={'pk': self.object.pk})
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=None)
+        return form
+
+    def form_valid(self, form):
+        github = self.request.POST.get('github_link')
+        user = User.objects.get(username = self.request.user)
+        UserProfile.objects.create(
+            github=github,
+            user=user
+        )
+        self.object = form.save()
+        return redirect(self.get_success_url())
 
 class UserChangePasswordView(UserPassesTestMixin, UpdateView):
     model = User
@@ -81,8 +98,7 @@ class UsersList(ListView):
     paginate_by = 3
     paginate_orphans = 1
 
-    def get_queryset(self):
-        return User.objects.all()
+
 
 
 # Create your views here.

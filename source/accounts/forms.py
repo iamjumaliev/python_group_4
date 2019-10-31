@@ -67,9 +67,13 @@ class UserCreationForm(forms.ModelForm):
         }
 
 class UserChangeForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['github_link'] = forms.URLField()
+
     class Meta:
-        model = UserProfile
-        fields = ['github']
+        model = User
+        fields = ['first_name', 'last_name', 'email']
 
 
 class UserChangePasswordForm(forms.ModelForm):
