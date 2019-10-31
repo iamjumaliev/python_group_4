@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django import forms
 from django.core.exceptions import ValidationError
 
+from accounts.models import UserProfile
+
 
 class UserCreationForm(forms.ModelForm):
 
@@ -66,8 +68,8 @@ class UserCreationForm(forms.ModelForm):
 
 class UserChangeForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'email']
+        model = UserProfile
+        fields = ['github']
 
 
 class UserChangePasswordForm(forms.ModelForm):
@@ -103,3 +105,6 @@ class UserChangePasswordForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['password', 'password_confirm', 'old_password']
+
+
+
