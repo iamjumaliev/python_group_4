@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 
 class ProfileInline(admin.StackedInline):
     model = UserProfile
-    fields = ['birth_date', 'avatar']
+    fields = ['avatar','about']
 
 
 class UserProfileAdmin(UserAdmin):
@@ -16,5 +16,5 @@ class UserProfileAdmin(UserAdmin):
 
 
 admin.site.unregister(User)
-admin.site.register(UserProfile, UserProfileAdmin)
+admin.site.register(User, UserProfileAdmin)
 # Register your models here.

@@ -36,6 +36,10 @@ class UserCreationForm(forms.ModelForm):
         if commit:
             user.save()
 
+        user.save()
+
+        UserProfile.objects.create(user=user)
+
         return user
 
     def clean(self):

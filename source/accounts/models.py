@@ -10,7 +10,6 @@ class UserProfile(models.Model):
     avatar = models.ImageField(null=True, blank=True, upload_to='user_pics', verbose_name='Аватар')
     def __str__(self):
         return self.user
-
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
