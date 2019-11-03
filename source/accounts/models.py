@@ -7,7 +7,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE, related_name='profile')
     github = models.CharField(max_length=200,null=False, blank=True,verbose_name='Ссылка на гитхаб')
 
-    def __unicode__(self):
+    def __str__(self):
         return self.user
 
     class Meta:

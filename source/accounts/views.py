@@ -61,15 +61,25 @@ class UserChangeView(UserPassesTestMixin, UpdateView):
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class=None)
+        obj = self.get_object()
+        form.fields['github_link'].initial = obj.profile.github
         return form
 
     def form_valid(self, form):
         github = self.request.POST.get('github_link')
         user = User.objects.get(username = self.request.user)
-        UserProfile.objects.create(
-            github=github,
-            user=user
-        )
+        try:
+            profile = UserProfile.objects.get(user = user)
+            profile(
+                github=github,
+                user=user
+            )
+            profile.save()
+        except:
+            UserProfile.objects.create(
+                github=github,
+                user=user
+            )
         self.object = form.save()
         return redirect(self.get_success_url())
 
