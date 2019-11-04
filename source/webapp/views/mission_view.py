@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.utils.http import urlencode
 
 from webapp.forms import MissionForm,SimpleSearchForm
-from webapp.models import Mission
+from webapp.models import Mission, Team, Project
 from django.views.generic import ListView,CreateView,DeleteView,UpdateView,DetailView
 from django.urls import reverse, reverse_lazy
 
@@ -62,10 +62,13 @@ class MissionCreateView(CreateView,UserPassesTestMixin):
 
     def test_func(self):
         if not self.request.user.is_authenticated:
-            return redirect('accounts:login')
-        return super().dispatch(self.request, self.args, self.kwargs)
-        # else:
-        #     self.
+            return False
+        project = self.get_object().project
+        users_project = Project.objects.filter(
+            team_project__user=self.request.user)
+        if project not in users_project:
+            return False
+        return True
 
 
     def get_success_url(self):
@@ -81,14 +84,11 @@ class MissionUpdateView(UserPassesTestMixin,UpdateView):
     def test_func(self):
         if not self.request.user.is_authenticated:
             return False
-
         project = self.get_object().project
-        print(project.team_project)
-        user =  self.request.user
-
-        #
-        # if user == project.project.user:
-        #     print(project.project.user)
+        users_project = Project.objects.filter(
+            team_project__user=self.request.user)
+        if project not in users_project:
+            return False
         return True
 
 

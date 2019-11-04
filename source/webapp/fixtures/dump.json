@@ -7,9 +7,9 @@
     "description": "blq bla bla bla",
     "status": 2,
     "type": 2,
-    "project": 3,
+    "project": 1,
     "created_at": "2019-09-27T10:56:09.929Z",
-    "updated_at": "2019-10-11T09:38:33.159Z"
+    "updated_at": "2019-10-11T12:49:52.505Z"
   }
 },
 {
@@ -18,11 +18,11 @@
   "fields": {
     "summary": "olololo",
     "description": "scholarshipsasf",
-    "status": 2,
+    "status": 3,
     "type": 3,
-    "project": 3,
+    "project": 2,
     "created_at": "2019-09-27T11:04:27.432Z",
-    "updated_at": "2019-10-11T09:38:36.446Z"
+    "updated_at": "2019-10-15T12:36:25.108Z"
   }
 },
 {
@@ -31,11 +31,11 @@
   "fields": {
     "summary": "ragby",
     "description": "lolfokgotrkg",
-    "status": 2,
+    "status": 3,
     "type": 3,
     "project": 2,
     "created_at": "2019-09-27T11:05:09.378Z",
-    "updated_at": "2019-10-11T09:38:38.987Z"
+    "updated_at": "2019-10-15T12:35:58.004Z"
   }
 },
 {
@@ -44,11 +44,11 @@
   "fields": {
     "summary": "basketbal",
     "description": "frog",
-    "status": 2,
+    "status": 3,
     "type": 3,
     "project": 1,
     "created_at": "2019-09-27T11:05:31.885Z",
-    "updated_at": "2019-10-11T09:38:41.633Z"
+    "updated_at": "2019-10-15T12:36:13.966Z"
   }
 },
 {
@@ -62,6 +62,32 @@
     "project": 1,
     "created_at": "2019-10-07T14:17:20.501Z",
     "updated_at": "2019-10-11T09:27:11.030Z"
+  }
+},
+{
+  "model": "webapp.mission",
+  "pk": 13,
+  "fields": {
+    "summary": "fhcnhg",
+    "description": "erwerewrwer",
+    "status": 2,
+    "type": 3,
+    "project": 3,
+    "created_at": "2019-10-11T14:08:08.991Z",
+    "updated_at": "2019-10-25T13:11:34.959Z"
+  }
+},
+{
+  "model": "webapp.mission",
+  "pk": 14,
+  "fields": {
+    "summary": "lagman",
+    "description": "lagman eats lagman",
+    "status": 4,
+    "type": 9,
+    "project": 1,
+    "created_at": "2019-10-14T13:37:11.032Z",
+    "updated_at": "2019-10-14T13:37:11.032Z"
   }
 },
 {
@@ -90,20 +116,6 @@
   "pk": 4,
   "fields": {
     "status": "lol"
-  }
-},
-{
-  "model": "webapp.status",
-  "pk": 7,
-  "fields": {
-    "status": "rgasdf"
-  }
-},
-{
-  "model": "webapp.status",
-  "pk": 9,
-  "fields": {
-    "status": "dfds"
   }
 },
 {
@@ -143,30 +155,9 @@
 },
 {
   "model": "webapp.type",
-  "pk": 11,
-  "fields": {
-    "type": "asfaf"
-  }
-},
-{
-  "model": "webapp.type",
   "pk": 12,
   "fields": {
     "type": "asfaf+aa"
-  }
-},
-{
-  "model": "webapp.type",
-  "pk": 13,
-  "fields": {
-    "type": "esffas"
-  }
-},
-{
-  "model": "webapp.type",
-  "pk": 15,
-  "fields": {
-    "type": "new type"
   }
 },
 {
@@ -184,37 +175,213 @@
   "pk": 2,
   "fields": {
     "name": "2",
-    "description": "second project olololo",
+    "description": "2second project ololoxfds1dlo",
     "created_at": "2019-10-11T09:21:38.455Z",
-    "updated_at": "2019-10-11T09:21:38.455Z"
+    "updated_at": "2019-10-11T12:59:39.418Z"
   }
 },
 {
   "model": "webapp.project",
   "pk": 3,
   "fields": {
-    "name": "3",
-    "description": "",
+    "name": "3s",
+    "description": "t3wt43",
     "created_at": "2019-10-11T09:26:39.557Z",
-    "updated_at": "2019-10-11T09:26:39.557Z"
+    "updated_at": "2019-11-04T12:50:53.382Z"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 4,
+  "fields": {
+    "name": "5",
+    "description": "tgreger",
+    "created_at": "2019-10-11T12:15:59.055Z",
+    "updated_at": "2019-10-11T12:18:35.480Z"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 5,
+  "fields": {
+    "name": "\u0430\u0435\u0440\u0435\u0430",
+    "description": "\u0435\u0440\u0430\u0435\u0440\u043f",
+    "created_at": "2019-10-11T12:21:26.663Z",
+    "updated_at": "2019-10-11T12:21:26.663Z"
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 7,
+  "fields": {
+    "name": "555",
+    "description": "",
+    "created_at": "2019-10-14T13:36:03.405Z",
+    "updated_at": "2019-10-14T13:36:03.405Z"
   }
 },
 {
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$150000$CDPtgpcu9r1G$BKZYDG2+xhhxjnUgRKCACpNWnNZYtgXC6DVI5Idwmgw=",
-    "last_login": "2019-10-11T09:19:20.172Z",
+    "password": "pbkdf2_sha256$150000$twV1c8NRZX0t$4cfC5tc+OeJd6cnZQUvhIaUqZgk+ZLcGJR0SxyLdBXA=",
+    "last_login": "2019-11-04T09:46:07.436Z",
     "is_superuser": true,
     "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
+    "first_name": "emir",
+    "last_name": "jumaliev",
+    "email": "example@gmail.com",
     "is_staff": true,
     "is_active": true,
     "date_joined": "2019-09-27T08:40:33.200Z",
     "groups": [],
     "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$QS3z430NKUjM$LEPLSKwQq4jjBRBYBXb51PCzz1URVTLxyXRzWWTkGmc=",
+    "last_login": "2019-10-28T12:55:06.052Z",
+    "is_superuser": false,
+    "username": "iamjumaliev",
+    "first_name": "emir",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-10-28T12:55:05.952Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$YVRKfRAeJONH$j6E30Ar2W12ljBkaY+As9ReuDNSd54uokK2x4GxPxzk=",
+    "last_login": "2019-10-28T12:56:48.453Z",
+    "is_superuser": false,
+    "username": "lolololo",
+    "first_name": "emir",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-10-28T12:56:48.353Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$zwduHzPtgbue$X6C5ZiI6PoSERTE+jnMj+MSWVkLJ42wUO4ZRuXvE/PQ=",
+    "last_login": "2019-10-29T13:28:00.944Z",
+    "is_superuser": false,
+    "username": "whatarethebanana",
+    "first_name": "emir",
+    "last_name": "jumaliev",
+    "email": "example@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-10-29T13:28:00.858Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$IDHrblLtJnQn$2i+KCAIRS1y5AjYEsOr87THUXp6iBLL7PvJdcn5Mjg0=",
+    "last_login": "2019-10-31T05:24:23.534Z",
+    "is_superuser": false,
+    "username": "1111",
+    "first_name": "melis gay",
+    "last_name": "gay",
+    "email": "example1@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-10-31T05:24:23.433Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$nxHPn9HufzMY$bUVxcIBxuj367YUW441FFGqEoCthp9pXbh4u6wTSRQ0=",
+    "last_login": "2019-10-31T12:39:23.075Z",
+    "is_superuser": false,
+    "username": "5555",
+    "first_name": "5555",
+    "last_name": "5555",
+    "email": "example2@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-10-31T12:39:22.975Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$hylKJoqKPwwj$e4/At4Zs7p+rYq38k/xCoEDC3iBJ32+0V0BhYrJjRX0=",
+    "last_login": "2019-10-31T13:08:58.480Z",
+    "is_superuser": false,
+    "username": "3333",
+    "first_name": "3333",
+    "last_name": "3333",
+    "email": "example3@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-10-31T13:08:58.377Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$qIe9YaQHG0Ea$XA1lRFuO4MdavQXnvyK+Z62HSBiJKIhpo58uH/w/gxo=",
+    "last_login": "2019-10-31T13:12:56.196Z",
+    "is_superuser": false,
+    "username": "test10",
+    "first_name": "test",
+    "last_name": "",
+    "email": "example1000@gmail.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-10-31T13:12:31.978Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "project": 1,
+    "created": "2019-11-04",
+    "ended": "2019-11-21"
+  }
+},
+{
+  "model": "webapp.team",
+  "pk": 2,
+  "fields": {
+    "user": 5,
+    "project": 1,
+    "created": "2019-11-04",
+    "ended": "2019-11-21"
   }
 }
 ]
