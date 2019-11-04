@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Mission, Status, Type, Project
+from .models import Mission, Status, Type, Project, Team
 
 
 class MissionAdmin(admin.ModelAdmin):
@@ -14,3 +14,4 @@ admin.site.register(Mission)
 admin.site.register(Status)
 admin.site.register(Type)
 admin.site.register(Project)
+admin.site.register(Team)

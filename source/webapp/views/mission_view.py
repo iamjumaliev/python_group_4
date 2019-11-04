@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import UserPassesTestMixin
 from django.db.models import Q
 from django.shortcuts import redirect
 from django.utils.http import urlencode
@@ -54,30 +55,43 @@ class MissionView(DetailView):
 
 
 
-class MissionCreateView(CreateView):
+class MissionCreateView(CreateView,UserPassesTestMixin):
     template_name = 'mission/create.html'
     model = Mission
     form_class = MissionForm
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
+    def test_func(self):
+        if not self.request.user.is_authenticated:
             return redirect('accounts:login')
-        return super().dispatch(request, *args, **kwargs)
+        return super().dispatch(self.request, self.args, self.kwargs)
+        # else:
+        #     self.
+
 
     def get_success_url(self):
         return reverse('webapp:mission_view', kwargs={'pk': self.object.pk})
 
 
-class MissionUpdateView(UpdateView):
+class MissionUpdateView(UserPassesTestMixin,UpdateView):
     form_class = MissionForm
     template_name = 'mission/update.html'
     model = Mission
     context_object_name = 'mission'
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('accounts:login')
-        return super().dispatch(request, *args, **kwargs)
+    def test_func(self):
+        if not self.request.user.is_authenticated:
+            return False
+
+        project = self.get_object().project
+        print(project.team_project)
+        user =  self.request.user
+
+        #
+        # if user == project.project.user:
+        #     print(project.project.user)
+        return True
+
+
 
     def get_success_url(self):
         return reverse('webapp:mission_view', kwargs={'pk': self.object.pk})
