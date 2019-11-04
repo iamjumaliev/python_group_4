@@ -2,23 +2,20 @@ from django.contrib.auth.models import User
 from django.db import models
 
 class Mission(models.Model):
-
     summary = models.CharField(max_length=200, null=False, blank=False, verbose_name='Краткое описание')
-
     description = models.CharField(max_length=3000, null=False, blank=True, verbose_name='Полное описание')
-
     status = models.ForeignKey('webapp.Status', related_name='mission_status',
                                on_delete=models.PROTECT,verbose_name='Status')
-
     type = models.ForeignKey('webapp.Type', related_name='mission_type', on_delete=models.PROTECT,
                              verbose_name='Type')
-
     project = models.ForeignKey('webapp.Project',related_name='mission_project', on_delete=models.PROTECT,
                                 null=True, blank=False,verbose_name='Project')
-
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
-
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
+    created_by = models.ForeignKey(User,related_name='mission_creator',on_delete=models.PROTECT,
+                                   verbose_name='Автор',null=True,blank=False)
+    assigned_to = models.ForeignKey(User,related_name='mission_worker',on_delete=models.PROTECT,
+                                    verbose_name='Исполнитель',null=True,blank=False)
 
 
 
