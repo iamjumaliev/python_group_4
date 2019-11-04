@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 class Mission(models.Model):
@@ -51,3 +52,14 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Team(models.Model):
+    user = models.ForeignKey(User,related_name='participant',on_delete=models.PROTECT,verbose_name='Участник')
+    project = models.ForeignKey('webapp.Project',related_name='project',
+                                on_delete=models.PROTECT,verbose_name='проект')
+    created = models.DateField(verbose_name='дата создание')
+    ended = models.DateField(verbose_name='дата окончания')
+
+    def __str__(self):
+        return self.user
