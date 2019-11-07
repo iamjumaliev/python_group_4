@@ -12,4 +12,5 @@
         {% include 'partial/pagination.html' %}
     {% endif %}
     <div class="pre">{{ mission.description }}</div>
+    <p><a href="{% url "webapp:add"  project.pk %}">Add mission</a></p>
 {% endblock %}

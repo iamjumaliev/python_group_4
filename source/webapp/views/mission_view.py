@@ -1,11 +1,13 @@
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.db.models import Q
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.utils.http import urlencode
+from django.views.generic.edit import FormMixin
 
 from webapp.forms import MissionForm,SimpleSearchForm
 from webapp.models import Mission, Team, Project
-from django.views.generic import ListView,CreateView,DeleteView,UpdateView,DetailView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView, TemplateView
 from django.urls import reverse, reverse_lazy
 
 
@@ -55,12 +57,19 @@ class MissionView(DetailView):
 
 
 
-class MissionCreateView(CreateView,UserPassesTestMixin):
+class MissionCreateView(UserPassesTestMixin,CreateView):
     template_name = 'mission/create.html'
     model = Mission
     form_class = MissionForm
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['project'] = get_object_or_404(Project, pk=self.kwargs['pk'])
+        return context
+
     def form_valid(self, form):
+        project = get_object_or_404(Project, pk=self.kwargs['pk'])
+        form.instance.project = project
         form.instance.created_by = self.request.user
         return super().form_valid(form)
 
@@ -73,6 +82,11 @@ class MissionCreateView(CreateView,UserPassesTestMixin):
         if project not in users_project:
             return False
         return True
+
+    # def get_form_kwargs(self):
+    #     kwargs = super().get_form_kwargs()
+    #     kwargs['users'] = User.objects.filter(participant__project=Project.objects.filter())
+    #     return kwargs
 
 
     def get_success_url(self):

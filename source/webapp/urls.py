@@ -11,7 +11,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view(), name='index'),
     path('mission/<int:pk>/', MissionView.as_view(), name='mission_view'),
-    path('add/', MissionCreateView.as_view(), name='add'),
+    path('add/project/<int:pk>/mission/', MissionCreateView.as_view(), name='add'),
     path('mission/<int:pk>/update/', MissionUpdateView.as_view(), name='mission_update'),
     path('mission/<int:pk>/delete/', MissionDeleteView.as_view(), name='mission_delete'),
     path('status/', StatusIndexView.as_view(), name='status'),

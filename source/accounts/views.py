@@ -70,7 +70,6 @@ class UserChangePasswordView(UserPassesTestMixin, UpdateView):
     def test_func(self):
         return self.get_object() == self.request.user
 
-
     def get_success_url(self):
         return reverse('accounts:login')
 
