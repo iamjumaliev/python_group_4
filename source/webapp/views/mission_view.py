@@ -60,6 +60,10 @@ class MissionCreateView(CreateView,UserPassesTestMixin):
     model = Mission
     form_class = MissionForm
 
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        return super().form_valid(form)
+
     def test_func(self):
         if not self.request.user.is_authenticated:
             return False
@@ -96,15 +100,19 @@ class MissionUpdateView(UserPassesTestMixin,UpdateView):
     def get_success_url(self):
         return reverse('webapp:mission_view', kwargs={'pk': self.object.pk})
 
-class MissionDeleteView(DeleteView):
+class MissionDeleteView(DeleteView,UserPassesTestMixin):
     model = Mission
     template_name = 'mission/delete.html'
     success_url = reverse_lazy('webapp:index')
     context_object_name =  'mission'
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('accounts:login')
-        return super().dispatch(request, *args, **kwargs)
-
+    def test_func(self):
+        if not self.request.user.is_authenticated:
+            return False
+        project = self.get_object().project
+        users_project = Project.objects.filter(
+            team_project__user=self.request.user)
+        if project not in users_project:
+            return False
+        return True
 

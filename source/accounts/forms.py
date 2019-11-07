@@ -106,7 +106,6 @@ class UserChangeForm(forms.ModelForm):
 
     def clean_github(self):
         gl = self.cleaned_data.get('github')
-
         g = 'github.com'
         l = ''
         if l == gl:

@@ -4,9 +4,11 @@ from webapp.models import Mission, Status, Type, Project
 
 
 class MissionForm(forms.ModelForm):
+
     class Meta:
         model = Mission
-        exclude = ['created_at', 'updated_at']
+        exclude = ['created_at', 'updated_at','created_by']
+
 
 
 class StatusForm(forms.ModelForm):
