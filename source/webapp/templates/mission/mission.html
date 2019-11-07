@@ -5,6 +5,7 @@
     <p>Статус: {{ mission.status }}</p>
     <p>Тип: {{ mission.type }}</p>
     <p>Проект {{ mission.project }}</p>
-    <p>Создатель {{ mission.created_by }}</p>
+    <p>Создатель: {{ mission.created_by }}</p>
+    <p>Исполнитель: {{ mission.assigned_to }}</p>
     <div class="pre">{{ mission.description }}</div>
 {% endblock %}
