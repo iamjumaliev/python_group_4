@@ -56,7 +56,7 @@ class ProjectView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         project = self.object
-        context['form'] = MissionForm()
+        context['form'] = ProjectForm()
         missions = project.mission_project.order_by('-created_at')
         self.paginate_mission_project_to_context(missions, context)
         return context

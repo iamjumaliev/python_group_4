@@ -62,6 +62,11 @@ class MissionCreateView(UserPassesTestMixin,CreateView):
     model = Mission
     form_class = MissionForm
 
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['project'] = get_object_or_404(Project, pk=self.kwargs['pk'])
+        return kwargs
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['project'] = get_object_or_404(Project, pk=self.kwargs['pk'])
@@ -83,10 +88,6 @@ class MissionCreateView(UserPassesTestMixin,CreateView):
             return False
         return True
 
-    # def get_form_kwargs(self):
-    #     kwargs = super().get_form_kwargs()
-    #     kwargs['users'] = User.objects.filter(participant__project=Project.objects.filter())
-    #     return kwargs
 
 
     def get_success_url(self):
