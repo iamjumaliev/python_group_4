@@ -134,12 +134,13 @@ class StatisticsMixin:
             self.stat[self.request.path] += 1
 
     def clean_dict_data(self):
-        data = self.request.session['session_stat'].copy()
-        for key, value in data.items():
+        data = {}
+        for key, value in self.request.session['session_stat'].items():
             if key == '/':
-                data['main_page'] = data.pop(key)
+                data['main_page'] = value
             elif key != '/':
-                data[key.replace('/', '')] = data.pop(key)
+                data[key.replace('/', '')] = value
+        print(data)
         return data
 
     # def time_counter(self):

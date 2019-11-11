@@ -24,7 +24,7 @@ class ProjectIndexView(ListView,StatisticsMixin):
         self.search_value = self.get_search_value()
         self.set_request(request=request)
         self.page_login()
-        self.clean_dict_data()
+        self.save_in_session()
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -59,7 +59,7 @@ class ProjectView(DetailView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
-        self.clean_dict_data()
+        self.save_in_session()
         return super().get(request, *args, **kwargs)
 
 
@@ -67,6 +67,7 @@ class ProjectView(DetailView,StatisticsMixin):
         context = super().get_context_data(**kwargs)
         project = self.object
         context['form'] = ProjectForm()
+        context['stats'] = self.clean_dict_data()
         missions = project.mission_project.order_by('-created_at')
         self.paginate_mission_project_to_context(missions, context)
         return context
@@ -88,10 +89,15 @@ class ProjectCreateView(CreateView,StatisticsMixin):
     form_class = ProjectForm
     context_object_name = 'project'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
+
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
-        self.clean_dict_data()
+        self.save_in_session()
         return super().get(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
@@ -111,8 +117,13 @@ class ProjectUpdateView(UpdateView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
-        self.clean_dict_data()
+        self.save_in_session()
         return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -132,8 +143,13 @@ class ProjectDeleteView(DeleteView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
-        self.clean_dict_data()
+        self.save_in_session()
         return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

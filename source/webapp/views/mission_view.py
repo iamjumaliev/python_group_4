@@ -67,9 +67,14 @@ class MissionView(StatisticsMixin,DetailView):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
-        self.clean_dict_data()
+        self.save_in_session()
         # self.stat.clear()
         return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
 
 
 
@@ -84,7 +89,7 @@ class MissionCreateView(UserPassesTestMixin,CreateView,StatisticsMixin):
         self.set_request(request=request)
         # self.stat.clear()
         self.page_login()
-        self.clean_dict_data()
+        self.save_in_session()
         return super().get(request, *args, **kwargs)
         # self.stat.clear()
 
@@ -95,6 +100,7 @@ class MissionCreateView(UserPassesTestMixin,CreateView,StatisticsMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
         context['project'] = get_object_or_404(Project, pk=self.kwargs['pk'])
         return context
 
@@ -129,8 +135,12 @@ class MissionUpdateView(UserPassesTestMixin,UpdateView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
-        self.clean_dict_data()
+        self.save_in_session()
         return super().get(request, *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
 
 
     def test_func(self):
@@ -157,8 +167,13 @@ class MissionDeleteView(DeleteView,UserPassesTestMixin,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
-        self.clean_dict_data()
+        self.save_in_session()
         return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
 
     def test_func(self):
         if not self.request.user.is_authenticated:

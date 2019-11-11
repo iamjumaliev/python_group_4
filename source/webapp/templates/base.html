@@ -59,6 +59,11 @@
                         Регистрация
                     </a>
                 </li>
+                <li>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Statistics
+                </button>
+            </li>
             {% endif %}
             {% block menu %}
             {% endblock %}
@@ -83,7 +88,7 @@
             </div>
             <div class="modal-body">
                 {% for key,value in stats.items %}
-                    <p>{{ key }} {{ value }}</p>
+                    <p>{{ key }}: {{ value }}</p>
                 {% endfor %}
             </div>
             <div class="modal-footer">

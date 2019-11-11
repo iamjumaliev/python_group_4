@@ -8,9 +8,10 @@ from django.views.generic import DetailView, UpdateView, ListView
 
 from accounts.models import UserProfile
 from .forms import UserCreationForm, UserChangePasswordForm
+from webapp.views.base_view import StatisticsMixin
 
 
-def login_view(request):
+def login_view(request,StatisticsMixin):
     context = {}
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -23,12 +24,45 @@ def login_view(request):
             context['has_error'] = True
     return render(request, 'registration/login.html', context=context)
 
+    def get(self, request, *args, **kwargs):
+        self.set_request(request=request)
+        self.page_login()
+        self.save_in_session()
+        return super().get(request, *args, **kwargs)
 
-def logout_view(request):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
+
+
+def logout_view(request,StatisticsMixin):
     logout(request)
+
+    def get(self, request, *args, **kwargs):
+        self.set_request(request=request)
+        self.page_login()
+        self.save_in_session()
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
     return redirect('webapp:login')
 
-def register_view(request, *args, **kwargs):
+def register_view(request,StatisticsMixin, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
+        self.set_request(request=request)
+        self.page_login()
+        self.save_in_session()
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
+
     if request.method == 'POST':
         form = UserCreationForm(data=request.POST)
         if form.is_valid():
@@ -46,11 +80,22 @@ class UserDetailView(DetailView):
 
 
 
-class UserChangeView(UserPassesTestMixin, UpdateView):
+class UserChangeView(UserPassesTestMixin,StatisticsMixin, UpdateView):
     model = User
     template_name = 'user_update.html'
     context_object_name = 'user_obj'
     form_class = UserChangeForm
+
+    def get(self, request, *args, **kwargs):
+        self.set_request(request=request)
+        self.page_login()
+        self.save_in_session()
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
 
     def test_func(self):
         return self.get_object() == self.request.user
@@ -61,11 +106,22 @@ class UserChangeView(UserPassesTestMixin, UpdateView):
 
 
 
-class UserChangePasswordView(UserPassesTestMixin, UpdateView):
+class UserChangePasswordView(StatisticsMixin,UserPassesTestMixin, UpdateView):
     model = User
     template_name = 'user_change_password.html'
     form_class = UserChangePasswordForm
     context_object_name = 'user_obj'
+
+    def get(self, request, *args, **kwargs):
+        self.set_request(request=request)
+        self.page_login()
+        self.save_in_session()
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
 
     def test_func(self):
         return self.get_object() == self.request.user

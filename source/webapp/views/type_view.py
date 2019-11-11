@@ -18,8 +18,13 @@ class TypeIndexView(ListView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
-        self.clean_dict_data()
+        self.save_in_session()
         return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
 
     def get_queryset(self):
         return Type.objects.all()
@@ -31,7 +36,7 @@ class TypeView(DetailView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
-        self.clean_dict_data()
+        self.save_in_session()
         return super().get(request, *args, **kwargs)
 
     template_name = 'type/type_view.html'
@@ -48,8 +53,13 @@ class TypeCreateView(CreateView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
-        self.clean_dict_data()
+        self.save_in_session()
         return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -68,8 +78,13 @@ class TypeUpdateView(UpdateView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
-        self.clean_dict_data()
+        self.save_in_session()
         return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -88,8 +103,13 @@ class TypeDeleteView(DeleteView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
-        self.clean_dict_data()
+        self.save_in_session()
         return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['stats'] = self.clean_dict_data()
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
