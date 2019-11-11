@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404
+from django.template import context
 from django.utils.http import urlencode
 from django.views.generic.edit import FormMixin
 
@@ -10,9 +11,10 @@ from webapp.models import Mission, Team, Project
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView, TemplateView
 from django.urls import reverse, reverse_lazy
 
+from webapp.views.base_view import StatisticsMixin
 
 
-class IndexView(ListView):
+class IndexView(StatisticsMixin,ListView):
     template_name = 'mission/index.html'
     context_object_name = 'missions'
     model = Mission
@@ -24,6 +26,7 @@ class IndexView(ListView):
     def get(self, request, *args, **kwargs):
         self.form = self.get_search_form()
         self.search_value = self.get_search_value()
+        self.set_request(request=request)
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -37,6 +40,8 @@ class IndexView(ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
+        self.page_login()
+        context['stats'] = self.stat
         context['form'] = self.form
         if self.search_value:
             context['query'] = urlencode({'search': self.search_value})
@@ -50,17 +55,32 @@ class IndexView(ListView):
             return self.form.cleaned_data['search']
         return None
 
-class MissionView(DetailView):
+class MissionView(StatisticsMixin,DetailView):
     template_name = 'mission/mission.html'
     model = Mission
     context_object_name = 'mission'
+    #
+    def get(self, request, *args, **kwargs):
+        self.set_request(request=request)
+        self.page_login()
+        # self.stat.clear()
+        return super().get(request, *args, **kwargs)
 
 
 
-class MissionCreateView(UserPassesTestMixin,CreateView):
+
+
+class MissionCreateView(UserPassesTestMixin,CreateView,StatisticsMixin):
     template_name = 'mission/create.html'
     model = Mission
     form_class = MissionForm
+
+    def get(self, request, *args, **kwargs):
+        self.set_request(request=request)
+        # self.stat.clear()
+        self.page_login()
+        return super().get(request, *args, **kwargs)
+        # self.stat.clear()
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -94,11 +114,15 @@ class MissionCreateView(UserPassesTestMixin,CreateView):
         return reverse('webapp:mission_view', kwargs={'pk': self.object.pk})
 
 
-class MissionUpdateView(UserPassesTestMixin,UpdateView):
+class MissionUpdateView(UserPassesTestMixin,UpdateView,StatisticsMixin):
     form_class = MissionForm
     template_name = 'mission/update.html'
     model = Mission
     context_object_name = 'mission'
+
+    def get(self, request, *args, **kwargs):
+        self.set_request(request=request)
+        self.page_login()
 
     def test_func(self):
         if not self.request.user.is_authenticated:
@@ -115,11 +139,13 @@ class MissionUpdateView(UserPassesTestMixin,UpdateView):
     def get_success_url(self):
         return reverse('webapp:mission_view', kwargs={'pk': self.object.pk})
 
-class MissionDeleteView(DeleteView,UserPassesTestMixin):
+class MissionDeleteView(DeleteView,UserPassesTestMixin,StatisticsMixin):
     model = Mission
     template_name = 'mission/delete.html'
     success_url = reverse_lazy('webapp:index')
     context_object_name =  'mission'
+
+
 
     def test_func(self):
         if not self.request.user.is_authenticated:

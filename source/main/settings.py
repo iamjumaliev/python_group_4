@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webapp',
-    'accounts'
+    'accounts',
+    'django.contrib.sessions'
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware'
 ]
 
 ROOT_URLCONF = 'main.urls'
@@ -127,4 +129,8 @@ LOGIN_REDIRECT_URL = "webapp:index"
 LOGOUT_REDIRECT_URL = "webapp:index"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/uploads/'
+# TEMPLATE_CONTEXT_PROCESSORS = (
+#     'django.core.context_processors.request',
+#
+# )
 

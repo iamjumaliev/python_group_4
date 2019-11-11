@@ -1,3 +1,5 @@
+# from django.http import request
+# from django.http import request
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import TemplateView
 from django.views.generic.base import View
@@ -111,3 +113,28 @@ class UpdateView(View):
     def get_redirect_url(self):
         return self.redirect_url
 
+
+class StatisticsMixin:
+    stat = {}
+    total_counter = 0
+
+    def set_request(self, request):
+        self.request = request
+        path = self.request.path
+        return path
+
+
+    def page_login(self):
+        self.session_counter()
+
+
+    def session_counter(self):
+        if self.set_request(self.request) not in self.stat:
+            self.stat[self.set_request(self.request)] = 1
+        elif (self.set_request(self.request)) in self.stat:
+            self.stat[self.set_request(self.request)] =+ 1
+
+
+
+    # def time_counter(self):
+    #     pass
