@@ -17,6 +17,7 @@ class StatusIndexView(ListView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -32,6 +33,7 @@ class StatusView(DetailView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
 
@@ -43,6 +45,7 @@ class StatusCreateView(CreateView, StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
@@ -63,6 +66,7 @@ class StatusUpdateView(UpdateView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
@@ -82,6 +86,7 @@ class StatusDeleteView(DeleteView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):

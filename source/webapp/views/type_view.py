@@ -18,6 +18,7 @@ class TypeIndexView(ListView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -30,6 +31,7 @@ class TypeView(DetailView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
     template_name = 'type/type_view.html'
@@ -46,6 +48,7 @@ class TypeCreateView(CreateView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
@@ -56,11 +59,17 @@ class TypeCreateView(CreateView,StatisticsMixin):
     def get_success_url(self):
         return reverse('webapp:type_view', kwargs={'pk': self.object.pk})
 
-class TypeUpdateView(UpdateView):
+class TypeUpdateView(UpdateView,StatisticsMixin):
     form_class = TypeForm
     template_name = 'type/update.html'
     model = Type
     context_object_name = 'type'
+
+    def get(self, request, *args, **kwargs):
+        self.set_request(request=request)
+        self.page_login()
+        self.clean_dict_data()
+        return super().get(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -70,11 +79,17 @@ class TypeUpdateView(UpdateView):
     def get_success_url(self):
         return reverse('webapp:type_view', kwargs={'pk': self.object.pk})
 
-class TypeDeleteView(DeleteView):
+class TypeDeleteView(DeleteView,StatisticsMixin):
     model = Type
     template_name = 'type/delete.html'
     success_url = reverse_lazy('webapp:type')
     context_object_name =  'type'
+
+    def get(self, request, *args, **kwargs):
+        self.set_request(request=request)
+        self.page_login()
+        self.clean_dict_data()
+        return super().get(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

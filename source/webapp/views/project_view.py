@@ -24,6 +24,7 @@ class ProjectIndexView(ListView,StatisticsMixin):
         self.search_value = self.get_search_value()
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -58,6 +59,7 @@ class ProjectView(DetailView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
 
@@ -89,6 +91,7 @@ class ProjectCreateView(CreateView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
@@ -108,6 +111,7 @@ class ProjectUpdateView(UpdateView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
@@ -128,6 +132,7 @@ class ProjectDeleteView(DeleteView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):

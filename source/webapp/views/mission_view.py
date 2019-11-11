@@ -67,6 +67,7 @@ class MissionView(StatisticsMixin,DetailView):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         # self.stat.clear()
         return super().get(request, *args, **kwargs)
 
@@ -83,6 +84,7 @@ class MissionCreateView(UserPassesTestMixin,CreateView,StatisticsMixin):
         self.set_request(request=request)
         # self.stat.clear()
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
         # self.stat.clear()
 
@@ -127,6 +129,7 @@ class MissionUpdateView(UserPassesTestMixin,UpdateView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
 
@@ -154,6 +157,7 @@ class MissionDeleteView(DeleteView,UserPassesTestMixin,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        self.clean_dict_data()
         return super().get(request, *args, **kwargs)
 
     def test_func(self):
