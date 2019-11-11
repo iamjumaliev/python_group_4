@@ -4,32 +4,49 @@ from webapp.forms import  TypeForm
 from webapp.models import  Type
 from django.views.generic import ListView,CreateView,DeleteView,UpdateView,DetailView
 
+from webapp.views.base_view import StatisticsMixin
 
 
-class TypeIndexView(ListView):
+class TypeIndexView(ListView,StatisticsMixin):
     template_name = 'type/type.html'
     context_object_name = 'types'
     model = Type
     paginate_by = 3
     paginate_orphans = 1
 
+
+    def get(self, request, *args, **kwargs):
+        self.set_request(request=request)
+        self.page_login()
+        return super().get(request, *args, **kwargs)
+
     def get_queryset(self):
         return Type.objects.all()
 
 
 
-class TypeView(DetailView):
+class TypeView(DetailView,StatisticsMixin):
+
+    def get(self, request, *args, **kwargs):
+        self.set_request(request=request)
+        self.page_login()
+        return super().get(request, *args, **kwargs)
 
     template_name = 'type/type_view.html'
     model = Type
     context_object_name = 'type'
 
-class TypeCreateView(CreateView):
+class TypeCreateView(CreateView,StatisticsMixin):
 
     template_name = 'type/create.html'
     model = Type
     form_class = TypeForm
     context_object_name = 'type'
+
+    def get(self, request, *args, **kwargs):
+        self.set_request(request=request)
+        self.page_login()
+        return super().get(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

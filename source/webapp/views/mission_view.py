@@ -27,7 +27,12 @@ class IndexView(StatisticsMixin,ListView):
         self.form = self.get_search_form()
         self.search_value = self.get_search_value()
         self.set_request(request=request)
+        self.page_login()
+        self.save_in_session()
         return super().get(request, *args, **kwargs)
+
+
+
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -40,8 +45,7 @@ class IndexView(StatisticsMixin,ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(object_list=object_list, **kwargs)
-        self.page_login()
-        context['stats'] = self.stat
+        context['stats'] = self.clean_dict_data()
         context['form'] = self.form
         if self.search_value:
             context['query'] = urlencode({'search': self.search_value})
@@ -123,6 +127,8 @@ class MissionUpdateView(UserPassesTestMixin,UpdateView,StatisticsMixin):
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
         self.page_login()
+        return super().get(request, *args, **kwargs)
+
 
     def test_func(self):
         if not self.request.user.is_authenticated:
@@ -145,7 +151,10 @@ class MissionDeleteView(DeleteView,UserPassesTestMixin,StatisticsMixin):
     success_url = reverse_lazy('webapp:index')
     context_object_name =  'mission'
 
-
+    def get(self, request, *args, **kwargs):
+        self.set_request(request=request)
+        self.page_login()
+        return super().get(request, *args, **kwargs)
 
     def test_func(self):
         if not self.request.user.is_authenticated:

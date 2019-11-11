@@ -120,21 +120,27 @@ class StatisticsMixin:
 
     def set_request(self, request):
         self.request = request
-        path = self.request.path
-        return path
 
+    def save_in_session(self):
+        self.request.session['session_stat'] = self.stat
 
     def page_login(self):
         self.session_counter()
 
-
     def session_counter(self):
-        if self.set_request(self.request) not in self.stat:
-            self.stat[self.set_request(self.request)] = 1
-        elif (self.set_request(self.request)) in self.stat:
-            self.stat[self.set_request(self.request)] =+ 1
+        if self.request.path not in self.stat.keys():
+            self.stat[self.request.path] = 1
+        elif self.request.path in self.stat.keys():
+            self.stat[self.request.path] += 1
 
-
+    def clean_dict_data(self):
+        data = self.request.session['session_stat'].copy()
+        for key, value in data.items():
+            if key == '/':
+                data['main_page'] = data.pop(key)
+            elif key != '/':
+                data[key.replace('/', '')] = data.pop(key)
+        return data
 
     # def time_counter(self):
     #     pass
