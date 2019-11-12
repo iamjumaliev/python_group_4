@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.utils.http import urlencode
 
 from webapp.forms import  ProjectForm,MissionForm,SimpleSearchForm
-from webapp.models import Project
+from webapp.models import Project, Team
 from django.views.generic import ListView,CreateView,DeleteView,UpdateView,DetailView
 from django.urls import reverse, reverse_lazy
 
@@ -99,6 +99,13 @@ class ProjectCreateView(CreateView,StatisticsMixin):
         self.page_login()
         self.save_in_session()
         return super().get(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        users = form.cleaned_data.pop('user')
+        self.object = form.save()
+        for user in users:
+            Team.objects.create(user=user, project=self.object)
+        return redirect(self.success_url())
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

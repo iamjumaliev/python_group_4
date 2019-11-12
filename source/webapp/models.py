@@ -55,8 +55,8 @@ class Team(models.Model):
     user = models.ForeignKey(User,related_name='participant',on_delete=models.PROTECT,verbose_name='Участник')
     project = models.ForeignKey('webapp.Project',related_name='team_project',
                                 on_delete=models.PROTECT,verbose_name='проект')
-    created = models.DateField(verbose_name='дата создание')
-    ended = models.DateField(verbose_name='дата окончания')
+    created = models.DateField(verbose_name='дата создание',null=True,blank=True)
+    ended = models.DateField(verbose_name='дата окончания',null=True,blank=True)
 
     def __str__(self):
         return self.user.username
