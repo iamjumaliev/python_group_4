@@ -3,11 +3,18 @@
     <li>
         <a href="{% url 'webapp:add' project.pk %}" class="link">Add mission</a>
     </li>
+    <li>
+        <a href="{% url 'webapp:project_users_update' project.pk %}" class="link">Remove users</a>
+    </li>
 {% endblock %}
 {% block content %}
     <h1 class="my-3"> Название проекта: {{ project.name }}</h1>
     <p>Дата создания: {{ project.created_at }}</p>
     <p>Описание: {{ project.description }}</p>
+    <p>Участники:</p>
+        {% for user_obj in users %}
+            <p>{{ user_obj.user.username }} дата начала работы {{ user_obj.created }}</p>
+        {% endfor %}
     <p>Задачи:</p>
         {% for mission in missions %}
             <p>{{ mission.summary }} <br> Создан {{ mission.created_at }} Статус {{ mission.status }}</p>

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Update Project Users{% endblock %}
+{% block menu %}
+{% endblock %}
+{% block content %}
+    <h1>Update project
+{#        <a href="{% url 'webapp:project_view' project.pk %}">{{ project.name }}</a>#}
+    </h1>
+    <form method="POST" action="{% url 'webapp:project_users_update' project.pk %}">
+        {% include 'partial/form.html' with button_text="Update" %}
+    </form>
+{% endblock %}
