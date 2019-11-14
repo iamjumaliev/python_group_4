@@ -6,7 +6,9 @@
     <h1>Update Task
         <a href="{% url 'webapp:mission_view' mission.pk %}">{{ mission.summary }}</a>
     </h1>
-    <form method="POST" action="{% url 'webapp:mission_update' mission.pk %}">
-        {% include 'partial/form.html' with button_text="Update" %}
-    </form>
+     {% if perms.webapp.mission_update %}
+        <form method="POST" action="{% url 'webapp:mission_update' mission.pk %}">
+            {% include 'partial/form.html' with button_text="Update" %}
+        </form>
+    {% endif %}
 {% endblock %}

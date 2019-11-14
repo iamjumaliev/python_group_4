@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.shortcuts import redirect, get_object_or_404
@@ -80,10 +80,13 @@ class MissionView(StatisticsMixin,DetailView):
 
 
 
-class MissionCreateView(UserPassesTestMixin,CreateView,StatisticsMixin):
+class MissionCreateView(PermissionRequiredMixin,CreateView,StatisticsMixin):
     template_name = 'mission/create.html'
     model = Mission
     form_class = MissionForm
+    permission_required = 'webapp.add'
+    permission_denied_message = "Доступ запрещён"
+
 
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
@@ -126,11 +129,13 @@ class MissionCreateView(UserPassesTestMixin,CreateView,StatisticsMixin):
         return reverse('webapp:mission_view', kwargs={'pk': self.object.pk})
 
 
-class MissionUpdateView(UserPassesTestMixin,UpdateView,StatisticsMixin):
+class MissionUpdateView(PermissionRequiredMixin,UserPassesTestMixin,UpdateView,StatisticsMixin):
     form_class = MissionForm
     template_name = 'mission/update.html'
     model = Mission
     context_object_name = 'mission'
+    permission_required = 'webapp.mission_update'
+    permission_denied_message = "Доступ запрещён"
 
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
@@ -158,11 +163,13 @@ class MissionUpdateView(UserPassesTestMixin,UpdateView,StatisticsMixin):
     def get_success_url(self):
         return reverse('webapp:mission_view', kwargs={'pk': self.object.pk})
 
-class MissionDeleteView(DeleteView,UserPassesTestMixin,StatisticsMixin):
+class MissionDeleteView(PermissionRequiredMixin,DeleteView,UserPassesTestMixin,StatisticsMixin):
     model = Mission
     template_name = 'mission/delete.html'
     success_url = reverse_lazy('webapp:index')
     context_object_name =  'mission'
+    permission_required = 'webapp.mission_delete'
+    permission_denied_message = "Доступ запрещён"
 
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)

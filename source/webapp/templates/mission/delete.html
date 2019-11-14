@@ -10,9 +10,11 @@
     <h1>Are you sure want to delete Task
         <a href="{% url 'webapp:mission_view' mission.pk %}">{{ mission.summary }}</a>?
     </h1>
-    <form method="POST" action="{% url 'webapp:mission_delete' mission.pk %}" class="text-center">
-        {% csrf_token %}
-        <p><input type="submit" class = 'btn' value="Confirm"></p>
-        <p><a href="{% url 'webapp:index'  %}" class = 'btn'>Cancel</a></p>
-    </form>
+     {% if perms.webapp.mission_delete %}
+        <form method="POST" action="{% url 'webapp:mission_delete' mission.pk %}" class="text-center">
+            {% csrf_token %}
+            <p><input type="submit" class = 'btn' value="Confirm"></p>
+            <p><a href="{% url 'webapp:index'  %}" class = 'btn'>Cancel</a></p>
+        </form>
+    {% endif %}
 {% endblock %}

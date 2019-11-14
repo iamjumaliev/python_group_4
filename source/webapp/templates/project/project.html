@@ -1,17 +1,22 @@
 {% extends 'base.html' %}
 {% block menu %}
-    <li>
-        <a href="{% url 'webapp:add' project.pk %}" class="link">Add mission</a>
-    </li>
-    <li>
-        <a href="{% url 'webapp:project_users_update' project.pk %}" class="link">Remove users</a>
-    </li>
+     {% if perms.webapp.add %}
+        <li>
+            <a href="{% url 'webapp:add' project.pk %}" class="link">Add mission</a>
+        </li>
+    {% endif %}
+    {% if pems.webapp.project_users_update %}
+        <li>
+            <a href="{% url 'webapp:project_users_update' project.pk %}" class="link">Remove users</a>
+        </li>
+    {% endif %}
 {% endblock %}
 {% block content %}
     <h1 class="my-3"> Название проекта: {{ project.name }}</h1>
     <p>Дата создания: {{ project.created_at }}</p>
     <p>Описание: {{ project.description }}</p>
     <p>Участники:</p>
+    {% if perms.webapp.team_delete %}
         {% for user_obj in users %}
             <form action="{% url 'webapp:team_delete' user_obj.pk %}" method="POST">
                 {% csrf_token %}
@@ -20,6 +25,7 @@
                 </p>
             </form>
         {% endfor %}
+    {% endif %}
     <p>Задачи:</p>
         {% for mission in missions %}
             <p>{{ mission.summary }} <br> Создан {{ mission.created_at }} Статус {{ mission.status }}</p>

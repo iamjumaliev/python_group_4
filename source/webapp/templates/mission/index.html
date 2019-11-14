@@ -12,6 +12,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-text card-link">
+
                             <a href="{% url 'webapp:mission_view' mission.pk %}">
                                 {{ mission.summary }}
                             </a>
@@ -21,12 +22,16 @@
                         </h3>
                         <p class="card-text">{{ mission.get_status_display }}</p>
                         <p class="card-text text-right">{{ mission.type }}</p>
+                         {% if perms.webapp.mission_delete %}
                         <li>
                             <a href="{% url 'webapp:mission_delete' mission.pk %}">Delete mission</a>
                         </li>
+                        {% endif %}
+                         {% if perms.webapp.mission_update %}
                         <li>
                             <a href="{% url 'webapp:mission_update' mission.pk %}">Update mission</a>
                         </li>
+                        {% endif %}
                     </div>
                 </div>
             </div>

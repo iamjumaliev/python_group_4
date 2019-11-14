@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -97,12 +97,14 @@ class ProjectView(DetailView,StatisticsMixin):
         context['is_paginated'] = page.has_other_pages()
 
 
-class ProjectCreateView(CreateView,StatisticsMixin):
+class ProjectCreateView(PermissionRequiredMixin,CreateView,StatisticsMixin):
 
     template_name = 'project/create.html'
     model = Project
     form_class = ProjectForm
     context_object_name = 'project'
+    permission_required = 'webapp.project_add'
+    permission_denied_message = "Доступ запрещён"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -131,11 +133,24 @@ class ProjectCreateView(CreateView,StatisticsMixin):
     def get_success_url(self):
         return reverse('webapp:project_view', kwargs={'pk': self.object.pk})
 
-class ProjectUpdateView(UpdateView,StatisticsMixin):
+
+    def test_func(self):
+        if not self.request.user.is_authenticated:
+            return False
+        project = get_object_or_404(Project, pk=self.kwargs['pk'])
+        users_project = Project.objects.filter(
+            team_project__user=self.request.user)
+        if project not in users_project:
+            return False
+        return True
+
+class ProjectUpdateView(PermissionRequiredMixin,UpdateView,StatisticsMixin):
     form_class = ProjectForm
     template_name = 'project/update.html'
     model = Project
     context_object_name = 'project'
+    permission_required = 'webapp.project_update'
+    permission_denied_message = "Доступ запрещён"
 
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
@@ -162,11 +177,24 @@ class ProjectUpdateView(UpdateView,StatisticsMixin):
         return reverse('webapp:project_view', kwargs={'pk': self.object.pk})
 
 
-class ProjectDeleteView(DeleteView,StatisticsMixin):
+    def test_func(self):
+        if not self.request.user.is_authenticated:
+            return False
+        project = get_object_or_404(Project, pk=self.kwargs['pk'])
+        users_project = Project.objects.filter(
+            team_project__user=self.request.user)
+        if project not in users_project:
+            return False
+        return True
+
+
+class ProjectDeleteView(PermissionRequiredMixin,DeleteView,StatisticsMixin):
     model = Project
     template_name = 'project/delete.html'
     success_url = reverse_lazy('webapp:project')
     context_object_name =  'project'
+    permission_required = 'webapp.project_delete'
+    permission_denied_message = "Доступ запрещён"
 
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
@@ -184,11 +212,23 @@ class ProjectDeleteView(DeleteView,StatisticsMixin):
             return redirect('accounts:login')
         return super().dispatch(request, *args, **kwargs)
 
+    def test_func(self):
+        if not self.request.user.is_authenticated:
+            return False
+        project = get_object_or_404(Project, pk=self.kwargs['pk'])
+        users_project = Project.objects.filter(
+            team_project__user=self.request.user)
+        if project not in users_project:
+            return False
+        return True
 
-class TeamProjectUserUpdate(FormView):
+
+class TeamProjectUserUpdate(PermissionRequiredMixin,FormView):
     template_name = 'project/project_users_update.html'
     success_url = reverse_lazy('webapp:project')
     form_class = TeamUpdateForm
+    permission_required = 'webapp.project_users_update'
+    permission_denied_message = "Доступ запрещён"
 
     def get_initial(self):
         initial = super().get_initial()
@@ -217,13 +257,25 @@ class TeamProjectUserUpdate(FormView):
                 Team.objects.create(user_id=user.pk,project=project,created=utc)
         return redirect(self.get_success_url())
 
+    def test_func(self):
+        if not self.request.user.is_authenticated:
+            return False
+        project = get_object_or_404(Project, pk=self.kwargs['pk'])
+        users_project = Project.objects.filter(
+            team_project__user=self.request.user)
+        if project not in users_project:
+            return False
+        return True
 
 
 
 
 
-class TeamUserDelete(LoginRequiredMixin, DeleteView):
+
+class TeamUserDelete(PermissionRequiredMixin, DeleteView):
     model = Team
+    permission_required = 'webapp.team_delete'
+    permission_denied_message = "Доступ запрещён"
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -231,8 +283,14 @@ class TeamUserDelete(LoginRequiredMixin, DeleteView):
         self.object.save()
         return redirect(reverse('webapp:project'))
 
-
-# Какой метод или методы будете переопределять
-# Логику в методе: если: бла-бла
+    def test_func(self):
+        if not self.request.user.is_authenticated:
+            return False
+        project = get_object_or_404(Project, pk=self.kwargs['pk'])
+        users_project = Project.objects.filter(
+            team_project__user=self.request.user)
+        if project not in users_project:
+            return False
+        return True
 
 
