@@ -44,5 +44,13 @@ class ProjectForm(forms.ModelForm):
         model = Project
         exclude = ['created_at', 'updated_at']
 
+
 class SimpleSearchForm(forms.Form):
     search = forms.CharField(max_length=100, required=False, label='Найти')
+
+
+class TeamUpdateForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['users'] = forms.ModelMultipleChoiceField(queryset=self.initial['users'])
+
