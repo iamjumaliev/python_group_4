@@ -22,12 +22,12 @@
                         </h3>
                         <p class="card-text">{{ mission.get_status_display }}</p>
                         <p class="card-text text-right">{{ mission.type }}</p>
-                         {% if perms.webapp.mission_delete %}
+                         {% if perms.webapp.delete_mission %}
                         <li>
                             <a href="{% url 'webapp:mission_delete' mission.pk %}">Delete mission</a>
                         </li>
                         {% endif %}
-                         {% if perms.webapp.mission_update %}
+                         {% if perms.webapp.change_mission %}
                         <li>
                             <a href="{% url 'webapp:mission_update' mission.pk %}">Update mission</a>
                         </li>

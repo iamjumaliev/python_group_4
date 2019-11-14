@@ -15,6 +15,7 @@ class MissionForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+
         self.project = kwargs.pop('project')
         super().__init__(*args, **kwargs)
         self.fields['assigned_to'] = forms.ModelChoiceField(queryset=User.objects.filter(

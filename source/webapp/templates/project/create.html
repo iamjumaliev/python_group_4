@@ -4,7 +4,7 @@
 {% block content %}
 
    <h1>Create Task</h1>
-    {% if perms.webapp.project_add %}
+    {% if perms.webapp.add_project %}
         <form method="POST" action="{% url "webapp:project_add" %}">
 
             {% csrf_token %}

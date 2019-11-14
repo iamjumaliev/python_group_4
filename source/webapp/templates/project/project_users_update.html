@@ -6,7 +6,7 @@
     <h1>Update project
 {#        <a href="{% url 'webapp:project_view' project.pk %}">{{ project.name }}</a>#}
     </h1>
-    {% if perms.webapp.project_users_update %}
+    {% if perms.webapp.update_project_users %}
     <form method="POST" action="{% url 'webapp:project_users_update' project.pk %}">
         {% include 'partial/form.html' with button_text="Update" %}
     </form>

@@ -8,7 +8,7 @@
     <h1>Are you sure want to delete Project
         <a href="{% url 'webapp:project_view'  project.pk %}">{{  project.name }}</a>?
     </h1>
-    {% if perms.webapp.project_delete %}
+    {% if perms.webapp.delete_project %}
     <form method="POST" action="{% url 'webapp:project_delete'  project.pk %}" class="text-center">
     {% endif %}
         {% csrf_token %}

@@ -1,9 +1,11 @@
 {% extends 'base.html' %}\
 {% block menu %}
     {% if perms.webapp.project_add %}
+        {% if perms.webapp.add_project %}
         <li>
             <a href="{% url 'webapp:project_add' %}" class="link">Add project</a>
         </li>
+    {% endif %}
     {% endif %}
     <div class="search">
         {% include 'partial/simple_search.html' %}
@@ -19,12 +21,12 @@
                         <h2 class="card-text card-link">
                             <a href="{% url 'webapp:project_view' project.pk %}">{{ project.name }}</a>
                         </h2>
-                        {% if perms.webapp.project_delete %}
+                        {% if perms.webapp.delete_project %}
                         <li>
                             <a href="{% url 'webapp:project_delete' project.pk %}">Delete project</a>
                         </li>
                         {% endif %}
-                        {% if perms.webapp.project_update %}
+                        {% if perms.webapp.update_project %}
                         <li>
                             <a href="{% url 'webapp:project_update' project.pk %}">Update project</a>
                         </li>

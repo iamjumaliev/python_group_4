@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 
 
 
-
 class ProfileInline(admin.StackedInline):
     model = UserProfile
     fields = ['avatar','about']
@@ -16,5 +15,5 @@ class UserProfileAdmin(UserAdmin):
 
 
 admin.site.unregister(User)
-admin.site.register(User, UserProfileAdmin)
+admin.site.register(User)
 # Register your models here.

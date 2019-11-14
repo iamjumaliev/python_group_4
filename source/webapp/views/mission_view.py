@@ -142,6 +142,8 @@ class MissionUpdateView(PermissionRequiredMixin,UserPassesTestMixin,UpdateView,S
         self.page_login()
         self.save_in_session()
         return super().get(request, *args, **kwargs)
+
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['stats'] = self.clean_dict_data()
@@ -158,7 +160,10 @@ class MissionUpdateView(PermissionRequiredMixin,UserPassesTestMixin,UpdateView,S
             return False
         return True
 
-
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['project'] = self.object.project
+        return kwargs
 
     def get_success_url(self):
         return reverse('webapp:mission_view', kwargs={'pk': self.object.pk})

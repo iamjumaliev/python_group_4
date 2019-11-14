@@ -2,7 +2,7 @@
 {% block title %}Create Mission{% endblock %}
 {% block content %}
    <h1>Create Task</h1>
-     {% if perms.webapp.mission_add %}
+     {% if perms.webapp.add_mission %}
         <form method="POST" action="{% url "webapp:add" project.pk %}">
             {% csrf_token %}
                 {% include 'partial/form.html' with button_text="Create" %}
