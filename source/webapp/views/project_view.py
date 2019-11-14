@@ -1,11 +1,12 @@
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.utils.http import urlencode
 
-from webapp.forms import  ProjectForm,MissionForm,SimpleSearchForm
+from webapp.forms import ProjectForm, MissionForm, SimpleSearchForm, TeamUpdateForm
 from webapp.models import Project, Team
-from django.views.generic import ListView,CreateView,DeleteView,UpdateView,DetailView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView, FormView
 from django.urls import reverse, reverse_lazy
 
 from webapp.views.base_view import StatisticsMixin
@@ -66,8 +67,11 @@ class ProjectView(DetailView,StatisticsMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         project = self.object
+        print(self.object)
         context['form'] = ProjectForm()
         context['stats'] = self.clean_dict_data()
+        context['users'] = Team.objects.filter(project=project, ended=None).distinct()
+        print(context['users'])
         missions = project.mission_project.order_by('-created_at')
         self.paginate_mission_project_to_context(missions, context)
         return context
@@ -101,11 +105,12 @@ class ProjectCreateView(CreateView,StatisticsMixin):
         return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):
-        users = form.cleaned_data.pop('user')
+        users = list(form.cleaned_data.pop('user'))
+        users.append(self.request.user)
         self.object = form.save()
         for user in users:
             Team.objects.create(user=user, project=self.object)
-        return redirect(self.success_url())
+        return redirect(self.get_success_url())
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -137,6 +142,11 @@ class ProjectUpdateView(UpdateView,StatisticsMixin):
             return redirect('accounts:login')
         return super().dispatch(request, *args, **kwargs)
 
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class=None)
+        form.fields.pop('user')
+        return form
+
     def get_success_url(self):
         return reverse('webapp:project_view', kwargs={'pk': self.object.pk})
 
@@ -162,3 +172,27 @@ class ProjectDeleteView(DeleteView,StatisticsMixin):
         if not request.user.is_authenticated:
             return redirect('accounts:login')
         return super().dispatch(request, *args, **kwargs)
+
+
+class TeamProjectUserUpdate(FormView):
+    template_name = 'project/project_users_update.html'
+    success_url = reverse_lazy('webapp:project')
+    form_class = TeamUpdateForm
+
+    def get_initial(self):
+        initial = super().get_initial()
+        project = get_object_or_404(Project, pk=self.kwargs['pk'])
+        users = Team.objects.filter(project=project, ended=None)
+        initial['users'] = users
+        return initial
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['project'] = get_object_or_404(Project, pk=self.kwargs['pk'])
+        return context
+
+
+# Какой метод или методы будете переопределять
+# Логику в методе: если: бла-бла
+
+

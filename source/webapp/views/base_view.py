@@ -1,4 +1,4 @@
-# from django.http import request
+ # from django.http import request
 # from django.http import request
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import TemplateView
@@ -140,7 +140,6 @@ class StatisticsMixin:
                 data['main_page'] = value
             elif key != '/':
                 data[key.replace('/', '')] = value
-        print(data)
         return data
 
     # def time_counter(self):
