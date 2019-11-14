@@ -52,5 +52,6 @@ class SimpleSearchForm(forms.Form):
 class TeamUpdateForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['users'] = forms.ModelMultipleChoiceField(queryset=self.initial['users'])
+        self.fields['users'] = forms.ModelMultipleChoiceField(queryset=User.objects.all(),
+                                                              initial = self.initial['users'])
 

@@ -8,6 +8,7 @@ from datetime import *
 import pytz
 from dateutil.tz import tzutc, tzlocal
 
+from django.utils import timezone
 from webapp.forms import ProjectForm, MissionForm, SimpleSearchForm, TeamUpdateForm
 from webapp.models import Project, Team
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView, FormView
@@ -18,9 +19,10 @@ from webapp.views.base_view import StatisticsMixin
 TZBISHKEK =  pytz.timezone('Asia/Bishkek')
 tzutc = tzutc()
 tzlocal = tzlocal()
+
 now = datetime.now(tzlocal)
 utc = now.astimezone(tzutc)
-
+print(now)
 class ProjectIndexView(ListView,StatisticsMixin):
     template_name = 'project/index.html'
     context_object_name = 'projects'
@@ -199,6 +201,26 @@ class TeamProjectUserUpdate(FormView):
         context = super().get_context_data(**kwargs)
         context['project'] = get_object_or_404(Project, pk=self.kwargs['pk'])
         return context
+
+    def form_valid(self, form):
+        project = get_object_or_404(Project, pk=self.kwargs['pk'])
+        new_users = form.cleaned_data.pop('users')
+        old_users = form.initial.get('users')
+        for user in old_users:
+            if user not in new_users:
+                team_user = User.objects.get(username =user.user.username)
+                user = Team.objects.get(user=team_user, project=project)
+                user.ended = utc
+                user.save()
+        for user in new_users:
+            if user not in old_users:
+                Team.objects.create(user_id=user.pk,project=project,created=utc)
+        return redirect(self.get_success_url())
+
+
+
+
+
 
 class TeamUserDelete(LoginRequiredMixin, DeleteView):
     model = Team
