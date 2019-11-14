@@ -4,7 +4,7 @@ from webapp.views import IndexView, MissionView, MissionCreateView, MissionDelet
     StatusCreateView, TypeView, TypeCreateView, TypeUpdateView, \
     TypeDeleteView, TypeIndexView, StatusIndexView, StatusView, StatusUpdateView, StatusDeleteView, ProjectIndexView, \
     ProjectView, ProjectDeleteView, ProjectCreateView,ProjectUpdateView
-from webapp.views.project_view import TeamProjectUserUpdate
+from webapp.views.project_view import TeamProjectUserUpdate, TeamUserDelete
 
 app_name = 'webapp'
 
@@ -30,5 +30,6 @@ urlpatterns = [
     path('project/<int:pk>/delete/', ProjectDeleteView.as_view(), name='project_delete'),
     path('project/add/',ProjectCreateView.as_view(),name='project_add'),
     path('project/<int:pk>/update/',ProjectUpdateView.as_view(),name='project_update'),
-    path('project/<int:pk>/users/update/',TeamProjectUserUpdate.as_view(),name='project_users_update')
+    path('project/<int:pk>/users/update/',TeamProjectUserUpdate.as_view(),name='project_users_update'),
+    path('project/user/<int:pk>/delete',TeamUserDelete.as_view(),name = 'team_delete' )
 ]

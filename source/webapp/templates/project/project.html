@@ -13,7 +13,12 @@
     <p>Описание: {{ project.description }}</p>
     <p>Участники:</p>
         {% for user_obj in users %}
-            <p>{{ user_obj.user.username }} дата начала работы {{ user_obj.created }}</p>
+            <form action="{% url 'webapp:team_delete' user_obj.pk %}" method="POST">
+                {% csrf_token %}
+                <p>{{ user_obj.user.username }} дата начала работы {{ user_obj.created }}
+                    <button class="button">Delete</button>
+                </p>
+            </form>
         {% endfor %}
     <p>Задачи:</p>
         {% for mission in missions %}

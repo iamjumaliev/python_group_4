@@ -1,4 +1,4 @@
-import tzlocal as tzlocal
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -6,7 +6,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.utils.http import urlencode
 from datetime import *
 import pytz
-
+from dateutil.tz import tzutc, tzlocal
 
 from webapp.forms import ProjectForm, MissionForm, SimpleSearchForm, TeamUpdateForm
 from webapp.models import Project, Team
@@ -16,6 +16,10 @@ from django.urls import reverse, reverse_lazy
 from webapp.views.base_view import StatisticsMixin
 
 TZBISHKEK =  pytz.timezone('Asia/Bishkek')
+tzutc = tzutc()
+tzlocal = tzlocal()
+now = datetime.now(tzlocal)
+utc = now.astimezone(tzutc)
 
 class ProjectIndexView(ListView,StatisticsMixin):
     template_name = 'project/index.html'
@@ -113,10 +117,6 @@ class ProjectCreateView(CreateView,StatisticsMixin):
         users = list(form.cleaned_data.pop('user'))
         users.append(self.request.user)
         self.object = form.save()
-        tzutc = tzutc()
-        tzlocal = tzlocal()
-        now = datetime.now(tzlocal)
-        utc = now.astimezone(tzutc)
         for user in users:
             Team.objects.create(user=user, project=self.object,created=utc)
         return redirect(self.get_success_url())
@@ -199,6 +199,15 @@ class TeamProjectUserUpdate(FormView):
         context = super().get_context_data(**kwargs)
         context['project'] = get_object_or_404(Project, pk=self.kwargs['pk'])
         return context
+
+class TeamUserDelete(LoginRequiredMixin, DeleteView):
+    model = Team
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.date_end = utc
+        self.object.save()
+        return redirect(reverse('webapp:project'))
 
 
 # Какой метод или методы будете переопределять
