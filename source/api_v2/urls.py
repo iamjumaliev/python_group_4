@@ -7,7 +7,7 @@ from api_v2 import views
 router = routers.DefaultRouter()
 
 router.register(r'projects', views.ProjectViewSet)
-router.register(r'orders', views.MissionViewSet)
+router.register(r'missions', views.MissionViewSet)
 
 app_name = 'api_v2'
 
