@@ -22,7 +22,10 @@ tzlocal = tzlocal()
 
 now = datetime.now(tzlocal)
 utc = now.astimezone(tzutc)
-print(now)
+
+
+
+
 class ProjectIndexView(ListView,StatisticsMixin):
     template_name = 'project/index.html'
     context_object_name = 'projects'

@@ -84,7 +84,7 @@ class MissionCreateView(PermissionRequiredMixin,CreateView,StatisticsMixin):
     template_name = 'mission/create.html'
     model = Mission
     form_class = MissionForm
-    permission_required = 'webapp.add'
+    permission_required = 'webapp.add_mission'
     permission_denied_message = "Доступ запрещён"
 
 
@@ -134,7 +134,7 @@ class MissionUpdateView(PermissionRequiredMixin,UserPassesTestMixin,UpdateView,S
     template_name = 'mission/update.html'
     model = Mission
     context_object_name = 'mission'
-    permission_required = 'webapp.mission_update'
+    permission_required = 'webapp.update_mission'
     permission_denied_message = "Доступ запрещён"
 
     def get(self, request, *args, **kwargs):
@@ -173,7 +173,7 @@ class MissionDeleteView(PermissionRequiredMixin,DeleteView,UserPassesTestMixin,S
     template_name = 'mission/delete.html'
     success_url = reverse_lazy('webapp:index')
     context_object_name =  'mission'
-    permission_required = 'webapp.mission_delete'
+    permission_required = 'webapp.delete_mission'
     permission_denied_message = "Доступ запрещён"
 
     def get(self, request, *args, **kwargs):
