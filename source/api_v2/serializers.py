@@ -10,8 +10,12 @@ class ProjectSerializer(serializers.ModelSerializer):
 
 
 class MissionSerializer(serializers.ModelSerializer):
+
+    project = ProjectSerializer(many=True,read_only=True)
+
     class Meta:
         model = Mission
         fields = ('id', 'summary', 'description', 'status', 'type',
                   'project','created_at', 'updated_at', 'created_by', 'assigned_to')
+
 
