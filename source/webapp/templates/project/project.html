@@ -18,7 +18,7 @@
     <p>Участники:</p>
     {% if perms.webapp.team_delete %}
         {% for user_obj in users %}
-            <form action="{% url 'webapp:delete_team' user_obj.pk %}" method="POST">
+            <form action="{% url 'webapp:team_delete' user_obj.pk %}" method="POST">
                 {% csrf_token %}
                 <p>{{ user_obj.user.username }} дата начала работы {{ user_obj.created }}
                     <button class="button">Delete</button>
@@ -35,4 +35,7 @@
         {% include 'partial/pagination.html' %}
     {% endif %}
     <div class="pre">{{ mission.description }}</div>
+    <form method="POST" action="{% url "webapp:add" project.pk %}">
+            {% include 'partial/form.html' with button_text="Create" %}
+    </form>
 {% endblock %}

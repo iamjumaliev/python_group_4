@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'webapp',
     'accounts',
-    'api_v2'
+    'api_v2',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -132,8 +133,12 @@ LOGIN_REDIRECT_URL = "webapp:index"
 LOGOUT_REDIRECT_URL = "webapp:index"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 MEDIA_URL = '/uploads/'
-# TEMPLATE_CONTEXT_PROCESSORS = (
-#     'django.core.context_processors.request',
-#
-# )
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
+
+}
 

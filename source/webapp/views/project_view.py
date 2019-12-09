@@ -82,10 +82,11 @@ class ProjectView(DetailView,StatisticsMixin):
         context = super().get_context_data(**kwargs)
         project = self.object
         print(self.object)
-        context['form'] = ProjectForm()
+        # context['form'] = ProjectForm()
         context['stats'] = self.clean_dict_data()
         context['users'] = Team.objects.filter(project=project, ended=None).distinct()
-        print(context['users'])
+        kwargs['project'] = get_object_or_404(Project, pk=self.kwargs['pk'])
+        context['form'] = MissionForm(project=kwargs.get('project'))
         missions = project.mission_project.order_by('-created_at')
         self.paginate_mission_project_to_context(missions, context)
         return context
@@ -98,6 +99,11 @@ class ProjectView(DetailView,StatisticsMixin):
         context['page_obj'] = page
         context['missions'] = page.object_list
         context['is_paginated'] = page.has_other_pages()
+
+
+# def project_mission_create(request, *args,**kwargs):
+
+
 
 
 class ProjectCreateView(PermissionRequiredMixin,CreateView,StatisticsMixin):

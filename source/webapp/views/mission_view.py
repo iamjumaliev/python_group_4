@@ -90,11 +90,10 @@ class MissionCreateView(PermissionRequiredMixin,CreateView,StatisticsMixin):
 
     def get(self, request, *args, **kwargs):
         self.set_request(request=request)
-        # self.stat.clear()
         self.page_login()
         self.save_in_session()
         return super().get(request, *args, **kwargs)
-        # self.stat.clear()
+
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
