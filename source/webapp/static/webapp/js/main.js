@@ -50,12 +50,12 @@ $.ajax({
 
 
 $.ajax({
-    url: 'http://localhost:8000/api/v2/missions/21/',
+    url: 'http://localhost:8000/api/v2/missions/23/',
     method: 'DELETE',
     dataType: 'json',
     headers: {'Authorization': 'Token ' + localStorage.getItem('apiToken')},
     contentType: 'application/json',
-    success: function(response, status){console.log(response);},
+    success: function(response, status){console.log("ok");},
     error: function(response, status){console.log(response);}
 });
 
